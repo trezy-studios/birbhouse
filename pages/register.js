@@ -18,32 +18,31 @@ import { AuthContext } from 'context/AuthContext'
 
 
 
-const Login = () => {
+const Register = () => {
   const router = useRouter()
   const {
-    login,
-    logout,
+    register,
     user,
   } = useContext(AuthContext)
   const [email, setEmail] = useState('')
   const [error, setError] = useState(null)
   const [password, setPassword] = useState('')
-  const [isLoggingIn, setIsLoggingIn] = useState(false)
+  const [isRegistering, setIsRegistering] = useState(false)
 
   const handleEmailChange = useCallback(event => setEmail(event.target.value), [setEmail])
   const handlePasswordChange = useCallback(event => setPassword(event.target.value), [setPassword])
   const handleSubmit = useCallback(async event => {
     event.preventDefault()
-    setIsLoggingIn(true)
+    setIsRegistering(true)
 
-    const error = await login({
+    const error = await register({
       email,
       password,
     })
 
     if (error) {
       setError(error)
-      setIsLoggingIn(false)
+      setIsRegistering(false)
     }
   }, [
     email,
@@ -56,7 +55,7 @@ const Login = () => {
     }
   }, [user])
 
-  const canSubmit = !isLoggingIn && Boolean(email) && Boolean(password)
+  const canSubmit = !isRegistering && Boolean(email) && Boolean(password)
 
   return (
     <form onSubmit={handleSubmit}>
@@ -81,7 +80,7 @@ const Login = () => {
           className="primary"
           disabled={!canSubmit}
           type="submit">
-          Login
+          Register
         </button>
       </menu>
 
@@ -96,4 +95,4 @@ const Login = () => {
 
 
 
-export default Login
+export default Register

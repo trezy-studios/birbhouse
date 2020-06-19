@@ -15,6 +15,7 @@ import {
   library as faLibrary,
 } from '@fortawesome/fontawesome-svg-core'
 import { DefaultSeo as DefaultSEO } from 'next-seo'
+import { AuthContextProvider } from 'context/AuthContext'
 import { TweetContextProvider } from 'context/TweetContext'
 import LocalForage from 'localforage'
 import NextApp from 'next/app'
@@ -84,33 +85,29 @@ class App extends NextApp {
     }, {})
 
     return (
-      <TweetContextProvider>
-        <div role="application">
-          <DefaultSEO
-            openGraph={{
-              type: 'website',
-              locale: 'en_US',
-              url: 'https://birb.house/',
-              site_name: 'Birbhouse',
-            }}
-            titleTemplate="%s | Birbhouse"
-            twitter={{
-              handle: '@TrezyCodes',
-              site: '@birbhouse',
-              cardType: 'summary_large_image',
-            }} />
+      <AuthContextProvider>
+        <TweetContextProvider>
+          <div role="application">
+            <DefaultSEO
+              openGraph={{
+                type: 'website',
+                locale: 'en_US',
+                url: 'https://birb.house/',
+                site_name: 'Birbhouse',
+              }}
+              titleTemplate="%s | Birbhouse"
+              twitter={{
+                handle: '@TrezyCodes',
+                site: '@TrezyCodes',
+                cardType: 'summary_large_image',
+              }} />
 
-          <NextHead>
-            <link
-              href="https://fonts.googleapis.com/css?family=Source+Code+Pro&amp;display=swap"
-              rel="stylesheet" />
-          </NextHead>
-
-          <main>
-            <Component {...pageProps} />
-          </main>
-        </div>
-      </TweetContextProvider>
+            <main>
+              <Component {...pageProps} />
+            </main>
+          </div>
+        </TweetContextProvider>
+      </AuthContextProvider>
     )
   }
 }

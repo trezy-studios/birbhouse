@@ -17,11 +17,13 @@ import { firebaseConfig } from 'firebase.config'
 
 
 
+let auth = null
 let database = null
 let firestore = null
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig)
+  auth = firebase.auth()
   database = firebase.database()
   firestore = firebase.firestore()
 }
@@ -31,6 +33,7 @@ if (!firebase.apps.length) {
 
 
 export {
+  auth,
   database,
   firebase,
   firestore,
