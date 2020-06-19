@@ -27,7 +27,7 @@ const Home = () => {
   } = useContext(AuthContext)
 
   useEffect(() => {
-    if (!user) {
+    if (!authIsLoading && !user) {
       router.replace('/register')
     }
   }, [user])
@@ -38,9 +38,9 @@ const Home = () => {
         description="Blorp"
         title="Home" />
 
-      {authIsLoading && (
-        <div>Loading...</div>
-      )}
+      <header className="page-header">
+        <h2>Home</h2>
+      </header>
 
       {(!authIsLoading && Boolean(user)) && (
         <TweetFeed />
