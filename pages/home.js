@@ -1,30 +1,53 @@
 // Module imports
+import React, {
+  useContext,
+  useEffect,
+} from 'react'
 import { NextSeo as NextSEO } from 'next-seo'
+import { useRouter } from 'next/router'
 import Link from 'next/link'
-import React from 'react'
 
 
 
 
 
-// Component imports
-import { TweetFeed } from '../components/TweetFeed'
+// Local imports
+import { AuthContext } from 'context/AuthContext'
+import { TweetFeed } from 'components/TweetFeed'
 
 
 
 
 
-const Home = () => (
-  <>
-    <NextSEO
-      description="Blorp"
-      title="Home" />
+const Home = () => {
+  const router = useRouter()
+  const {
+    isLoading: authIsLoading,
+    user,
+  } = useContext(AuthContext)
 
-    <div>birb.house</div>
+  useEffect(() => {
+    if (!user) {
+      router.replace('/register')
+    }
+  }, [user])
 
-    <TweetFeed />
-  </>
-)
+  return (
+    <>
+      <NextSEO
+        description="Blorp"
+        title="Home" />
+
+      {authIsLoading && (
+        <div>Loading...</div>
+      )}
+
+      {(!authIsLoading && Boolean(user)) && (
+        <TweetFeed />
+      )}
+    </>
+  )
+}
 
 
 

@@ -21,44 +21,58 @@ import { AuthContext } from 'context/AuthContext'
 const Register = () => {
   const router = useRouter()
   const {
+    isRegistering,
     register,
     user,
   } = useContext(AuthContext)
   const [email, setEmail] = useState('')
   const [error, setError] = useState(null)
   const [password, setPassword] = useState('')
-  const [isRegistering, setIsRegistering] = useState(false)
+  const [username, setUsername] = useState('')
 
   const handleEmailChange = useCallback(event => setEmail(event.target.value), [setEmail])
   const handlePasswordChange = useCallback(event => setPassword(event.target.value), [setPassword])
+  const handleUsernameChange = useCallback(event => setUsername(event.target.value), [setUsername])
   const handleSubmit = useCallback(async event => {
     event.preventDefault()
-    setIsRegistering(true)
 
     const error = await register({
       email,
       password,
+      username,
     })
 
     if (error) {
       setError(error)
-      setIsRegistering(false)
     }
   }, [
     email,
     password,
+    setError,
+    username,
   ])
 
   useEffect(() => {
-    if (user) {
+    if (user && !isRegistering) {
       router.push('/home')
     }
-  }, [user])
+  }, [
+    isRegistering,
+    user,
+  ])
 
   const canSubmit = !isRegistering && Boolean(email) && Boolean(password)
 
   return (
     <form onSubmit={handleSubmit}>
+      <input
+        name="username"
+        onChange={handleUsernameChange}
+        placeholder="Username (e.g Trezy)"
+        required
+        type="username"
+        value={username} />
+
       <input
         name="email"
         onChange={handleEmailChange}

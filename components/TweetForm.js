@@ -11,6 +11,7 @@ import PropTypes from 'prop-types'
 
 
 // Local imports
+import { AuthContext } from 'context/AuthContext'
 import { TweetContext } from 'context/TweetContext'
 
 
@@ -19,6 +20,7 @@ import { TweetContext } from 'context/TweetContext'
 
 const TweetForm = props => {
   const { redirectTo } = props
+  const { user } = useContext(AuthContext)
   const { sendTweet } = useContext(TweetContext)
   const [body, setBody] = useState('')
   const [error, setError] = useState(null)
@@ -33,6 +35,7 @@ const TweetForm = props => {
     setError(null)
 
     const error = await sendTweet({
+      authorID: user.uid,
       body,
       isDraft,
     })
@@ -53,9 +56,10 @@ const TweetForm = props => {
     setError,
     setIsDraft,
     setIsSaving,
+    user,
   ])
 
-  const canSubmit = Boolean(body) && !isSaving
+  const canSubmit = Boolean(user) && Boolean(body) && !isSaving
 
   return (
     <form
@@ -69,6 +73,11 @@ const TweetForm = props => {
         required
         type="text"
         value={body} />
+
+      <input
+        name="authorID"
+        type="hidden"
+        value={user?.uid} />
 
       <input
         name="redirectTo"
