@@ -1,14 +1,16 @@
-input, textarea {
-  background-color: inherit;
-  background-image: none;
-  border: none;
-  color: inherit;
-  font-family: inherit;
-  font-size: inherit;
-  font-weight: inherit;
-  height: 100%;
-  line-height: inherit;
-  padding: 0;
-  resize: vertical;
-  width: 100%;
+.input-container {
+  input, textarea {
+    background-color: inherit;
+    background-image: none;
+    border: none;
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    height: 100%;
+    line-height: inherit;
+    padding: 1rem;
+    resize: vertical;
+    width: 100%;
+  }
 }

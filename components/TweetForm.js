@@ -13,6 +13,7 @@ import PropTypes from 'prop-types'
 // Local imports
 import { AuthContext } from 'context/AuthContext'
 import { TweetsContext } from 'context/TweetsContext'
+import { Input } from 'components/Input'
 
 
 
@@ -66,38 +67,40 @@ const TweetForm = props => {
       action="/api/send-tweet"
       method="post"
       onSubmit={handleSubmit}>
-      <input
+      <Input
         name="body"
         onChange={handleChange}
         placeholder="What's happening?"
         required
-        type="text"
         value={body} />
 
-      <input
+      <Input
         name="authorID"
         type="hidden"
         value={user?.uid} />
 
-      <input
+      <Input
         name="redirectTo"
         type="hidden"
         value={redirectTo} />
 
-      <button
-        className="primary"
-        disabled={!canSubmit}
-        type="submit">
-        Tweet
-      </button>
-      <button
-        className="secondary"
-        disabled={!canSubmit}
-        formction="/api/send-tweet?isDraft"
-        onClick={handleSaveDraft}
-        type="submit">
-        Save Draft
-      </button>
+      <menu type="toolbar">
+        <button
+          className="primary"
+          disabled={!canSubmit}
+          type="submit">
+          Tweet
+        </button>
+
+        <button
+          className="secondary"
+          disabled={!canSubmit}
+          formction="/api/send-tweet?isDraft"
+          onClick={handleSaveDraft}
+          type="submit">
+          Save Draft
+        </button>
+      </menu>
 
       {Boolean(error) && (
         <div>{error.message}</div>

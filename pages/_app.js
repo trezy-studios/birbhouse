@@ -104,9 +104,15 @@ class App extends NextApp {
                   cardType: 'summary_large_image',
                 }} />
 
-              <main>
+              {(Component.useMain !== false) && (
+                <main>
+                  <Component {...pageProps} />
+                </main>
+              )}
+
+              {(Component.useMain === false) && (
                 <Component {...pageProps} />
-              </main>
+              )}
             </div>
           </TweetsContextProvider>
         </ProfilesContextProvider>

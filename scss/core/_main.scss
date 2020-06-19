@@ -1,4 +1,7 @@
 main {
   display: flex;
   flex-direction: column;
+  flex-basis: 100rem;
+	overflow: auto;
+	padding: 0 10rem;
 }

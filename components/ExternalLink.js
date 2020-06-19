@@ -35,4 +35,4 @@ ExternalLink.propTypes = {
 
 
 
-export default ExternalLink
+export { ExternalLink }
