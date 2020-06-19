@@ -89,6 +89,7 @@ const AuthContextProvider = props => {
       } = await auth.createUserWithEmailAndPassword(email, password)
       const newProfile = {
         bio: '',
+        displayName: username,
         username,
       }
       const newSettings = {}
