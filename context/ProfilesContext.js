@@ -34,17 +34,20 @@ const ProfilesContextProvider = props => {
   const { children } = props
   const [profiles, setProfiles] = useState({})
   const unsubscribers = useRef([])
+  const monitoredUsers = useRef({})
 
   const addUser = useCallback(userID => {
     if (!profilesCollection) {
       profilesCollection = firestore.collection('profiles')
     }
 
-    if (!profiles[userID]) {
+    if (!monitoredUsers.current[userID]) {
+      monitoredUsers.current[userID] = true
+
       unsubscribers.current.push(profilesCollection.doc(userID).onSnapshot(doc => {
         setProfiles(oldProfiles => ({
           ...oldProfiles,
-          [doc.id]: {
+          [userID]: {
             ...doc.data(),
           },
         }))
@@ -53,6 +56,10 @@ const ProfilesContextProvider = props => {
   }, [setProfiles])
 
   const clear = useCallback(() => {
+    const monitoredUserIDs = Object.keys(monitoredUsers.current)
+    monitoredUserIDs.forEach(userID => {
+      delete monitoredUserIDs.current[userID]
+    })
     unsubscribers.current.forEach(unsubscriber => unsubscriber())
   }, [unsubscribers])
 
