@@ -53,6 +53,7 @@ export default class MyDocument extends Document {
       ],
       imgSrc: [
         "'self'",
+        'https://api.adorable.io',
         'https://images.unsplash.com',
         'https://twitter-9dd2d.googleusercontent.com',
         'https://firebasestorage.googleapis.com',
