@@ -15,7 +15,7 @@ export const handler = async (request, response) => {
   const result = await fetch('https://api.unsplash.com/photos/random', {
     headers: {
       'Accept-Version': 'v1',
-      Authorization: `Client-ID ${process.env.UNSPLASH_ACCESS_KEY}`,
+      Authorization: `Client-ID ${process.env.unsplashAccessKey}`,
     },
   })
   const resultJSON = await result.json()

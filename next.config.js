@@ -28,6 +28,8 @@ module.exports = {
     firebaseProjectID: process.env.FIREBASE_PROJECT_ID,
     firebaseStorageBucket: process.env.FIREBASE_STORAGE_BUCKET,
 
+    unsplashAccessKey: process.env.UNSPLASH_ACCESS_KEY,
+
     buildDate: (new Date()).toISOString(),
     nodeVersion: process.version,
   },
