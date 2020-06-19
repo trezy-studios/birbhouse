@@ -11,6 +11,7 @@ import PropTypes from 'prop-types'
 
 
 // Local imports
+import { MarkdownRenderer } from 'components/MarkdownRenderer'
 import { ProfilesContext } from 'context/ProfilesContext'
 
 
@@ -30,8 +31,6 @@ const Tweet = props => {
   } = props
 
   const authorProfile = profiles[authorID]
-
-  console.log({ authorProfile })
 
   if (!authorProfile) {
     addUser(authorID)
@@ -61,7 +60,7 @@ const Tweet = props => {
       </header>
 
       <div className="body">
-        {body}
+        <MarkdownRenderer source={body} />
       </div>
     </article>
   )

@@ -1,35 +1,27 @@
-// Module imports
-import behead from 'remark-behead'
-import shortcodes from 'remark-shortcodes'
-
-
-
-
-
 // Local imports
 import {
   Code,
-  Image,
   List,
-  Shortcode,
-} from './markdownRenderers'
+} from 'helpers/markdownRenderers'
 
 
 
 
 
 const config = {
-  plugins: [
-    [behead, { depth: 1 }],
-    shortcodes,
+  disallowedTypes: [
+    'heading',
+    'html',
+    'image',
+    'imageReference',
+    'linkReference',
+    'thematicBreak',
   ],
   renderers: {
     code: Code,
-    image: Image,
-    imageReference: Image,
     list: List,
-    shortcode: Shortcode,
   },
+  unwrapDisallowed: true,
 }
 
 
