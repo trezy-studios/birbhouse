@@ -4,6 +4,7 @@ import React, {
   useContext,
   useState,
 } from 'react'
+import classnames from 'classnames'
 import PropTypes from 'prop-types'
 
 
@@ -14,6 +15,13 @@ import PropTypes from 'prop-types'
 import { AuthContext } from 'context/AuthContext'
 import { TweetsContext } from 'context/TweetsContext'
 import { Input } from 'components/Input'
+
+
+
+
+
+// Local constants
+const MAX_TWEET_LENGTH = 280
 
 
 
@@ -68,6 +76,7 @@ const TweetForm = props => {
       method="post"
       onSubmit={handleSubmit}>
       <Input
+        multiline
         name="body"
         onChange={handleChange}
         placeholder="What's happening?"
@@ -87,7 +96,7 @@ const TweetForm = props => {
       <menu type="toolbar">
         <button
           className="primary"
-          disabled={!canSubmit}
+          disabled={!canSubmit || (body.length > MAX_TWEET_LENGTH)}
           type="submit">
           Tweet
         </button>
@@ -100,6 +109,17 @@ const TweetForm = props => {
           type="submit">
           Save Draft
         </button>
+
+        {(body.length >= (MAX_TWEET_LENGTH - 60)) && (
+          <span
+            className={classnames({
+              'text-primary': (body.length < (MAX_TWEET_LENGTH - 20)),
+              'text-warning': (body.length >= (MAX_TWEET_LENGTH - 20)) && (body.length <= MAX_TWEET_LENGTH),
+              'text-danger': (body.length > MAX_TWEET_LENGTH),
+            })}>
+            {MAX_TWEET_LENGTH - body.length}
+          </span>
+        )}
       </menu>
 
       {Boolean(error) && (
