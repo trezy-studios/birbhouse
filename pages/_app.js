@@ -16,7 +16,8 @@ import {
 } from '@fortawesome/fontawesome-svg-core'
 import { DefaultSeo as DefaultSEO } from 'next-seo'
 import { AuthContextProvider } from 'context/AuthContext'
-import { TweetContextProvider } from 'context/TweetContext'
+import { ProfilesContextProvider } from 'context/ProfilesContext'
+import { TweetsContextProvider } from 'context/TweetsContext'
 import LocalForage from 'localforage'
 import NextApp from 'next/app'
 import NextHead from 'next/head'
@@ -86,27 +87,29 @@ class App extends NextApp {
 
     return (
       <AuthContextProvider>
-        <TweetContextProvider>
-          <div role="application">
-            <DefaultSEO
-              openGraph={{
-                type: 'website',
-                locale: 'en_US',
-                url: 'https://birb.house/',
-                site_name: 'Birbhouse',
-              }}
-              titleTemplate="%s | Birbhouse"
-              twitter={{
-                handle: '@TrezyCodes',
-                site: '@TrezyCodes',
-                cardType: 'summary_large_image',
-              }} />
+        <ProfilesContextProvider>
+          <TweetsContextProvider>
+            <div role="application">
+              <DefaultSEO
+                openGraph={{
+                  type: 'website',
+                  locale: 'en_US',
+                  url: 'https://birb.house/',
+                  site_name: 'Birbhouse',
+                }}
+                titleTemplate="%s | Birbhouse"
+                twitter={{
+                  handle: '@TrezyCodes',
+                  site: '@TrezyCodes',
+                  cardType: 'summary_large_image',
+                }} />
 
-            <main>
-              <Component {...pageProps} />
-            </main>
-          </div>
-        </TweetContextProvider>
+              <main>
+                <Component {...pageProps} />
+              </main>
+            </div>
+          </TweetsContextProvider>
+        </ProfilesContextProvider>
       </AuthContextProvider>
     )
   }

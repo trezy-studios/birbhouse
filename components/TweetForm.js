@@ -12,7 +12,7 @@ import PropTypes from 'prop-types'
 
 // Local imports
 import { AuthContext } from 'context/AuthContext'
-import { TweetContext } from 'context/TweetContext'
+import { TweetsContext } from 'context/TweetsContext'
 
 
 
@@ -21,7 +21,7 @@ import { TweetContext } from 'context/TweetContext'
 const TweetForm = props => {
   const { redirectTo } = props
   const { user } = useContext(AuthContext)
-  const { sendTweet } = useContext(TweetContext)
+  const { sendTweet } = useContext(TweetsContext)
   const [body, setBody] = useState('')
   const [error, setError] = useState(null)
   const [isDraft, setIsDraft] = useState(false)

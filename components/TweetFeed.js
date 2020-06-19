@@ -12,7 +12,7 @@ import moment from 'moment'
 
 // Local imports
 import { Tweet } from 'components/Tweet'
-import { TweetContext } from 'context/TweetContext'
+import { TweetsContext } from 'context/TweetsContext'
 import { TweetForm } from 'components/TweetForm'
 
 
@@ -20,7 +20,7 @@ import { TweetForm } from 'components/TweetForm'
 
 
 export const TweetFeed = () => {
-  const { tweets } = useContext(TweetContext)
+  const { tweets } = useContext(TweetsContext)
 
   return (
     <>

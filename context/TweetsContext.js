@@ -21,7 +21,7 @@ import {
 
 
 
-const TweetContext = React.createContext({
+const TweetsContext = React.createContext({
   sendTweet: () => {},
   tweets: [],
 })
@@ -31,7 +31,7 @@ let tweetsCollection = null
 
 
 
-const TweetContextProvider = props => {
+const TweetsContextProvider = props => {
   const {
     authorID,
     children,
@@ -100,28 +100,28 @@ const TweetContextProvider = props => {
   }, [setTweets])
 
   return (
-    <TweetContext.Provider
+    <TweetsContext.Provider
       value={{
         sendTweet,
         tweets,
       }}>
       {children}
-    </TweetContext.Provider>
+    </TweetsContext.Provider>
   )
 }
 
-TweetContextProvider.defaultProps = {
+TweetsContextProvider.defaultProps = {
   authorID: null,
   includeDrafts: false,
 }
 
-TweetContextProvider.propTypes = {
+TweetsContextProvider.propTypes = {
   authorID: PropTypes.string,
   children: PropTypes.node.isRequired,
   includeDrafts: PropTypes.bool,
 }
 
 export {
-  TweetContext,
-  TweetContextProvider,
+  TweetsContext,
+  TweetsContextProvider,
 }
