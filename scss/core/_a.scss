@@ -1,0 +1,9 @@
+a {
+  color: var(--primary);
+  transition-duration: 0.2s;
+
+  &.button {
+    color: inherit;
+    text-decoration: none;
+  }
+}

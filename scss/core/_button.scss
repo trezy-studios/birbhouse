@@ -1,0 +1,37 @@
+button, .button {
+  background-color: var(--transparent);
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  display: inline-block;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: 1;
+  padding: var(--gutter) calc(var(--gutter) * 2);
+  position: relative;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  &.primary {
+    background-color: var(--primary);
+    color: var(--inverted-text-color);
+
+    &:disabled {
+      background-color: var(--primary-muted);
+      cursor: not-allowed;
+    }
+  }
+
+  &.secondary {
+    background-color: var(--secondary);
+    color: var(--inverted-text-color);
+
+    &:disabled {
+      background-color: var(--secondary-muted);
+      cursor: not-allowed;
+    }
+  }
+}

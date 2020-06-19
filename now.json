@@ -1,0 +1,29 @@
+{
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Feature-Policy",
+          "value":  "ambient-light-sensor 'self' https://google.com; autoplay 'none'; accelerometer 'none'; camera 'none'; display-capture 'none'; document-domain 'none'; encrypted-media 'none'; fullscreen 'none'; geolocation 'none'; gyroscope 'none'; magnetometer 'none'; microphone 'none'; midi 'none'; payment 'none'; picture-in-picture 'none'; speaker 'none'; sync-xhr 'none'; usb 'none'; wake-lock 'none'; webauthn 'none'; vr 'none'; xr 'none'"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value":  "no-referrer"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value":  "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value":  "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value":  "0 1; 1 mode=block"
+        }
+      ]
+    }
+  ]
+}

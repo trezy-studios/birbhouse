@@ -1,0 +1,72 @@
+@mixin generateHSLCustomProperties($name, $h, $s, $l) {
+  // $safeName is necessary because $name can be a color literal. Sass doesn't
+  // like that.
+  $safeName: '' + $name;
+
+  --#{$safeName}-h: calc(#{$h} + var(--hue-shift));
+  --#{$safeName}-s: #{$s};
+  --#{$safeName}-l: #{$l};
+
+  --#{$safeName}-hsl: var(--#{$safeName}-h), var(--#{$safeName}-s), var(--#{$safeName}-l);
+
+  --#{$safeName}: hsl(var(--#{$safeName}-hsl));
+}
+
+@mixin generateHSLCustomPropertiesFromColorWithName($name, $color) {
+  @include generateHSLCustomProperties(
+    $name,
+    hue($color),
+    saturation($color),
+    lightness($color),
+  )
+}
+
+
+
+
+
+
+:root {
+	--hue-shift: 0deg;
+
+  /***************************************************************************\
+    Palettes
+  \***************************************************************************/
+
+	// Core
+	@include generateHSLCustomPropertiesFromColorWithName(primary, #2780e3);
+	@include generateHSLCustomPropertiesFromColorWithName(secondary, #373a3c);
+	@include generateHSLCustomPropertiesFromColorWithName(success, #3fb617);
+	@include generateHSLCustomPropertiesFromColorWithName(info, #9954bb);
+	@include generateHSLCustomPropertiesFromColorWithName(warning, #ff7518);
+	@include generateHSLCustomPropertiesFromColorWithName(danger, #ff0039);
+
+	// Muted
+	@include generateHSLCustomPropertiesFromColorWithName(primary-muted, #7bafed);
+	@include generateHSLCustomPropertiesFromColorWithName(secondary-muted, #848687);
+	@include generateHSLCustomPropertiesFromColorWithName(success-muted, #82d07a);
+	@include generateHSLCustomPropertiesFromColorWithName(info-muted, #be94d4);
+	@include generateHSLCustomPropertiesFromColorWithName(warning-muted, #fca87b);
+  @include generateHSLCustomPropertiesFromColorWithName(danger-muted, #fca87b);
+
+  --transparent: transparent;
+
+
+
+
+
+  /***************************************************************************\
+
+  \***************************************************************************/
+
+  @include generateHSLCustomPropertiesFromColorWithName(text-color, #1a1a1a);
+  @include generateHSLCustomPropertiesFromColorWithName(inverted-text-color, #fff);
+  @include generateHSLCustomPropertiesFromColorWithName(background-color, #fff);
+
+  // @media (prefers-color-scheme: dark) {
+  //   @include generateHSLCustomPropertiesFromColorWithName(text-color, #ffffff);
+  //   @include generateHSLCustomPropertiesFromColorWithName(inverted-text-color, #1a1a1a);
+  //   @include generateHSLCustomPropertiesFromColorWithName(background-color, #1a1a1a);
+  //   @include generateHSLCustomPropertiesFromColorWithName(main-background-color, #000000);
+  // }
+}
