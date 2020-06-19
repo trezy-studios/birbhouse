@@ -30,7 +30,10 @@ const Home = () => {
     if (!authIsLoading && !user) {
       router.replace('/register')
     }
-  }, [user])
+  }, [
+    authIsLoading,
+    user,
+  ])
 
   return (
     <>
