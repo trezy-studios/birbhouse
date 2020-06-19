@@ -26,13 +26,19 @@ export const TweetFeed = () => {
     <>
       <TweetForm />
 
-      <ol>
-        {tweets.map(tweet => (
-          <li key={tweet.id}>
-            <Tweet {...tweet} />
-          </li>
-        ))}
-      </ol>
+      {!tweets.length && (
+        <div>No tweets to show</div>
+      )}
+
+      {Boolean(tweets.length) && (
+        <ol>
+          {tweets.map(tweet => (
+            <li key={tweet.id}>
+              <Tweet {...tweet} />
+            </li>
+          ))}
+        </ol>
+      )}
     </>
   )
 }

@@ -42,7 +42,10 @@ const Tweet = props => {
   }
 
   return (
-    <article>
+    <article className="tweet">
+      <img
+        className="avatar"
+        src={authorProfile.avatar || `https://api.adorable.io/avatars/50/${authorProfile.username}`} />
       <header>
         <Link href="/author">
           <a>{authorProfile.username}</a>
@@ -57,7 +60,9 @@ const Tweet = props => {
         </Link>
       </header>
 
-      {body}
+      <div className="body">
+        {body}
+      </div>
     </article>
   )
 }

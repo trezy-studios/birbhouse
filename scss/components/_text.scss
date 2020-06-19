@@ -1,0 +1,7 @@
+$styles: primary, secondary, success, info, warning, danger;
+
+@each $style in $styles {
+  .text-#{$style} {
+    color: var(--#{$style});
+  }
+}
