@@ -48,7 +48,7 @@ const SplitPage = props => {
 
     const imageElement = new Image()
 
-    imageElement.src = data.urls.full
+    imageElement.src = data.urls.regular
 
     await imageElement.decode()
 
