@@ -1,9 +1,4 @@
 // Local imports
-import {
-  firebase,
-  firebaseAdmin,
-  firestore,
-} from 'helpers/firebase.server'
 import createEndpoint from 'helpers/createEndpoint'
 import httpStatus from 'helpers/httpStatus'
 
