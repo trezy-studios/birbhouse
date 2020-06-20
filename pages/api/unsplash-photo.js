@@ -12,7 +12,7 @@ import httpStatus from 'helpers/httpStatus'
 
 
 export const handler = async (request, response) => {
-  const result = await fetch('https://api.unsplash.com/photos/random', {
+  const result = await fetch('https://api.unsplash.com/photos/random?query=birdhouse', {
     headers: {
       'Accept-Version': 'v1',
       Authorization: `Client-ID ${process.env.unsplashAccessKey}`,
