@@ -45,7 +45,7 @@ const Register = () => {
   )
 }
 
-Register.useMain = false
+Register.useLayout = false
 
 
 

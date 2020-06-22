@@ -1,0 +1,27 @@
+[role=banner] {
+  padding: var(--gutter);
+
+  nav {
+    ul {
+      display: flex;
+      flex-direction: column;
+    }
+
+    a {
+      display: block;
+      font-size: 1.5em;
+      padding: calc(var(--gutter) / 2) var(--gutter);
+      text-decoration: none;
+
+      &:hover {
+        background-color: var(--inverted-background-color);
+        color: var(--inverted-text-color);
+      }
+
+      &.active {
+        background-color: var(--accent-color);
+        color: var(--inverted-text-color);
+      }
+    }
+  }
+}

@@ -36,11 +36,11 @@ const ProfilesContextProvider = props => {
   const unsubscribers = useRef([])
   const monitoredUsers = useRef({})
 
-  const addUser = useCallback(userID => {
-    if (!profilesCollection) {
-      profilesCollection = firestore.collection('profiles')
-    }
+  if (firestore && !profilesCollection) {
+    profilesCollection = firestore.collection('profiles')
+  }
 
+  const addUser = useCallback(userID => {
     if (!monitoredUsers.current[userID]) {
       monitoredUsers.current[userID] = true
 

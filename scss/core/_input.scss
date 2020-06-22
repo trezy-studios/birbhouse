@@ -1,4 +1,7 @@
 .input-container {
+  background-color: var(--accent-color);
+  display: flex;
+
   input, textarea {
     background-color: inherit;
     background-image: none;
@@ -12,5 +15,13 @@
     padding: 1rem;
     resize: vertical;
     width: 100%;
+
+    &::placeholder {
+      color: var(--text-color);
+    }
+  }
+
+  + .input-container {
+    margin-top: var(--gutter);
   }
 }

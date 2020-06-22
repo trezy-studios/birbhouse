@@ -1,17 +1,10 @@
 [role=application] {
   align-items: stretch;
-  display: flex;
-  font-family: 'Source Sans Pro', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, 'Helvetica Neue', sans-serif;
-  font-size: 15px;
-  font-weight: 400;
+  display: grid;
+  grid-gap: var(--gutter);
+  grid-template-columns: 1fr 4fr;
   justify-content: center;
-  line-height: 1.3;
+  margin: 0 auto;
   min-height: 100vh;
-  width: 100vw;
-
-  // @media (min-width: 1300px) {
-  //   align-items: flex-start;
-  //   display: flex;
-  //   padding: var(--gutter);
-  // }
+  width: native-min(100rem, 100vw);
 }

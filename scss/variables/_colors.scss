@@ -59,14 +59,17 @@
 
   \***************************************************************************/
 
-  @include generateHSLCustomPropertiesFromColorWithName(text-color, #1a1a1a);
-  @include generateHSLCustomPropertiesFromColorWithName(inverted-text-color, #fff);
+  @include generateHSLCustomPropertiesFromColorWithName(accent-color, #ddd);
   @include generateHSLCustomPropertiesFromColorWithName(background-color, #fff);
+  @include generateHSLCustomPropertiesFromColorWithName(text-color, #1a1a1a);
+  @include generateHSLCustomPropertiesFromColorWithName(inverted-background-color, #1a1a1a);
+  @include generateHSLCustomPropertiesFromColorWithName(inverted-text-color, #fff);
 
-  // @media (prefers-color-scheme: dark) {
-  //   @include generateHSLCustomPropertiesFromColorWithName(text-color, #ffffff);
-  //   @include generateHSLCustomPropertiesFromColorWithName(inverted-text-color, #1a1a1a);
-  //   @include generateHSLCustomPropertiesFromColorWithName(background-color, #1a1a1a);
-  //   @include generateHSLCustomPropertiesFromColorWithName(main-background-color, #000000);
-  // }
+  @media (prefers-color-scheme: dark) {
+    @include generateHSLCustomPropertiesFromColorWithName(accent-color, #333);
+    @include generateHSLCustomPropertiesFromColorWithName(background-color, #000000);
+    @include generateHSLCustomPropertiesFromColorWithName(text-color, #fff);
+    @include generateHSLCustomPropertiesFromColorWithName(inverted-background-color, #1a1a1a);
+    @include generateHSLCustomPropertiesFromColorWithName(inverted-text-color, #fff);
+  }
 }

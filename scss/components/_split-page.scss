@@ -1,10 +1,12 @@
 .split-page {
   align-items: center;
   display: grid;
+  grid-column: span 2;
   grid-template-columns: repeat(2, 1fr);
+  height: 100%;
   width: 100%;
 
-  .image-container {
+  > :first-child {
     align-content: stretch;
     align-items: stretch;
     align-self: stretch;
@@ -28,5 +30,9 @@
         position: absolute;
       }
     }
+  }
+
+  > :last-child {
+    padding: native-max(var(--gutter), 10rem);
   }
 }

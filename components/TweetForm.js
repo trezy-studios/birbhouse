@@ -71,61 +71,65 @@ const TweetForm = props => {
   const canSubmit = Boolean(user) && Boolean(body) && !isSaving
 
   return (
-    <form
-      action="/api/send-tweet"
-      method="post"
-      onSubmit={handleSubmit}>
-      <Input
-        multiline
-        name="body"
-        onChange={handleChange}
-        placeholder="What's happening?"
-        required
-        value={body} />
+    <>
+      <form
+        action="/api/send-tweet"
+        method="post"
+        onSubmit={handleSubmit}>
+        <Input
+          multiline
+          name="body"
+          onChange={handleChange}
+          placeholder="What's happening?"
+          required
+          value={body} />
 
-      <Input
-        name="authorID"
-        type="hidden"
-        value={user?.uid} />
+        <input
+          name="authorID"
+          type="hidden"
+          value={user?.uid} />
 
-      <Input
-        name="redirectTo"
-        type="hidden"
-        value={redirectTo} />
+        <input
+          name="redirectTo"
+          type="hidden"
+          value={redirectTo} />
 
-      <menu type="toolbar">
-        <button
-          className="primary"
-          disabled={!canSubmit || (body.length > MAX_TWEET_LENGTH)}
-          type="submit">
-          Tweet
-        </button>
+        <menu type="toolbar">
+          <button
+            className="primary"
+            disabled={!canSubmit || (body.length > MAX_TWEET_LENGTH)}
+            type="submit">
+            Tweet
+          </button>
 
-        <button
-          className="secondary"
-          disabled={!canSubmit}
-          formction="/api/send-tweet?isDraft"
-          onClick={handleSaveDraft}
-          type="submit">
-          Save Draft
-        </button>
+          <button
+            className="secondary"
+            disabled={!canSubmit}
+            formction="/api/send-tweet?isDraft"
+            onClick={handleSaveDraft}
+            type="submit">
+            Save Draft
+          </button>
 
-        {(body.length >= (MAX_TWEET_LENGTH - 60)) && (
-          <span
-            className={classnames({
-              'text-primary': (body.length < (MAX_TWEET_LENGTH - 20)),
-              'text-warning': (body.length >= (MAX_TWEET_LENGTH - 20)) && (body.length <= MAX_TWEET_LENGTH),
-              'text-danger': (body.length > MAX_TWEET_LENGTH),
-            })}>
-            {MAX_TWEET_LENGTH - body.length}
-          </span>
+          {(body.length >= (MAX_TWEET_LENGTH - 60)) && (
+            <span
+              className={classnames({
+                'text-primary': (body.length < (MAX_TWEET_LENGTH - 20)),
+                'text-warning': (body.length >= (MAX_TWEET_LENGTH - 20)) && (body.length <= MAX_TWEET_LENGTH),
+                'text-danger': (body.length > MAX_TWEET_LENGTH),
+              })}>
+              {MAX_TWEET_LENGTH - body.length}
+            </span>
+          )}
+        </menu>
+
+        {Boolean(error) && (
+          <div>{error.message}</div>
         )}
-      </menu>
+      </form>
 
-      {Boolean(error) && (
-        <div>{error.message}</div>
-      )}
-    </form>
+      <hr />
+    </>
   )
 }
 

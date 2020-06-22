@@ -44,6 +44,14 @@ const AuthContextProvider = props => {
   const [settings, setSettings] = useState(null)
   const [user, setUser] = useState(null)
 
+  if (firestore && !profilesCollection) {
+    profilesCollection = firestore.collection('profiles')
+  }
+
+  if (firestore && !settingsCollection) {
+    settingsCollection = firestore.collection('settings')
+  }
+
   const login = useCallback(async ({ email, password }) => {
     try {
       await auth.signInWithEmailAndPassword(email, password)
@@ -72,14 +80,6 @@ const AuthContextProvider = props => {
     } = options
 
     setIsRegistering(true)
-
-    if (!profilesCollection) {
-      profilesCollection = firestore.collection('profiles')
-    }
-
-    if (!settingsCollection) {
-      settingsCollection = firestore.collection('settings')
-    }
 
     try {
       const {
@@ -114,13 +114,25 @@ const AuthContextProvider = props => {
   ])
 
   useEffect(() => {
-    auth.onAuthStateChanged(setUser)
+    const unsubscribers = []
+
+    unsubscribers.push(auth.onAuthStateChanged(user => {
+      const userDocRef = profilesCollection.doc(user.uid)
+      unsubscribers.push(userDocRef.onSnapshot(doc => setProfile(doc.data())))
+
+      setUser(user)
+    }))
 
     if (isLoading) {
       setIsLoading(false)
     }
+
+    return () => {
+      unsubscribers.forEach(unsubscriber => unsubscriber())
+    }
   }, [
     setIsLoading,
+    setProfile,
     setUser,
   ])
 
@@ -131,6 +143,7 @@ const AuthContextProvider = props => {
         isRegistering,
         login,
         logout,
+        profile,
         register,
         user,
       }}>

@@ -1,0 +1,3 @@
+@function native-min($values...) {
+  @return #{"min(#{$values})"};
+}

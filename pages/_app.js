@@ -33,6 +33,7 @@ import Router from 'next/router'
 import * as fasIcons from 'helpers/fasIconLibrary'
 import * as fabIcons from 'helpers/fabIconLibrary'
 import * as farIcons from 'helpers/farIconLibrary'
+import { Banner } from 'components/Banner'
 import firebase from 'helpers/firebase'
 
 
@@ -86,37 +87,41 @@ class App extends NextApp {
     }, {})
 
     return (
-      <AuthContextProvider>
-        <ProfilesContextProvider>
-          <TweetsContextProvider>
-            <div role="application">
-              <DefaultSEO
-                openGraph={{
-                  type: 'website',
-                  locale: 'en_US',
-                  url: 'https://birb.house/',
-                  site_name: 'Birbhouse',
-                }}
-                titleTemplate="%s | Birbhouse"
-                twitter={{
-                  handle: '@TrezyCodes',
-                  site: '@TrezyCodes',
-                  cardType: 'summary_large_image',
-                }} />
+      <>
+        <DefaultSEO
+          openGraph={{
+            type: 'website',
+            locale: 'en_US',
+            url: 'https://birb.house/',
+            site_name: 'Birbhouse',
+          }}
+          titleTemplate="%s | Birbhouse"
+          twitter={{
+            handle: '@TrezyCodes',
+            site: '@TrezyCodes',
+            cardType: 'summary_large_image',
+          }} />
 
-              {(Component.useMain !== false) && (
-                <main>
-                  <Component {...pageProps} />
-                </main>
+        <ProfilesContextProvider>
+          <AuthContextProvider>
+            <TweetsContextProvider>
+              {(Component.useLayout !== false) && (
+                <div role="application">
+                  <Banner />
+
+                  <main>
+                    <Component {...pageProps} />
+                  </main>
+                </div>
               )}
 
-              {(Component.useMain === false) && (
+              {(Component.useLayout === false) && (
                 <Component {...pageProps} />
               )}
-            </div>
-          </TweetsContextProvider>
+            </TweetsContextProvider>
+          </AuthContextProvider>
         </ProfilesContextProvider>
-      </AuthContextProvider>
+      </>
     )
   }
 }

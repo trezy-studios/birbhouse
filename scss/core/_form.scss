@@ -1,3 +1,7 @@
 form {
   display: grid;
+
+  menu {
+    margin-top: var(--gutter);
+  }
 }

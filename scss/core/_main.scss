@@ -1,7 +1,6 @@
 main {
   display: flex;
-  flex-basis: 100rem;
   flex-direction: column;
-	overflow: auto;
-  padding: 0 10rem;
+  overflow: auto;
+  padding: var(--gutter);
 }

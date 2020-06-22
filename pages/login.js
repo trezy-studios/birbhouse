@@ -37,7 +37,7 @@ const Login = () => {
   )
 }
 
-Login.useMain = false
+Login.useLayout = false
 
 
 

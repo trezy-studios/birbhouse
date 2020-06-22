@@ -45,6 +45,7 @@ export default class MyDocument extends Document {
       fontSrc: [
         'https://fonts.googleapis.com',
         'https://fonts.gstatic.com',
+        'https://use.typekit.net',
         'data:',
       ],
       frameSrc: [
@@ -92,7 +93,12 @@ export default class MyDocument extends Document {
           <link rel="webmention" href="https://webmention.io/birb.house/webmention" />
           <link rel="pingback" href="https://webmention.io/birb.house/xmlrpc" />
 
-          <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&amp;family=Source+Sans+Pro:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet" />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&amp;family=Source+Sans+Pro:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap"
+            rel="stylesheet" />
+          <link
+            href="https://use.typekit.net/wcl7qou.css"
+            rel="stylesheet" />
         </Head>
 
         <body>
