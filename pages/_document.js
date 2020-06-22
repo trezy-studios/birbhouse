@@ -62,6 +62,8 @@ export default class MyDocument extends Document {
       scriptSrc: [
         "'self'",
         'https://*.firebaseio.com',
+        'https://use.typekit.net',
+        'https://p.typekit.net',
         cspHashOf(NextScript.getInlineScriptSource(this.props)),
       ],
       styleSrc: [
