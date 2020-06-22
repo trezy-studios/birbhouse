@@ -17,7 +17,6 @@ import {
 import { DefaultSeo as DefaultSEO } from 'next-seo'
 import { AuthContextProvider } from 'context/AuthContext'
 import { ProfilesContextProvider } from 'context/ProfilesContext'
-import { TweetsContextProvider } from 'context/TweetsContext'
 import LocalForage from 'localforage'
 import NextApp from 'next/app'
 import NextHead from 'next/head'
@@ -104,21 +103,19 @@ class App extends NextApp {
 
         <ProfilesContextProvider>
           <AuthContextProvider>
-            <TweetsContextProvider>
-              {(Component.useLayout !== false) && (
-                <div role="application">
-                  <Banner />
+            {(Component.useLayout !== false) && (
+              <div role="application">
+                <Banner />
 
-                  <main>
-                    <Component {...pageProps} />
-                  </main>
-                </div>
-              )}
+                <main>
+                  <Component {...pageProps} />
+                </main>
+              </div>
+            )}
 
-              {(Component.useLayout === false) && (
-                <Component {...pageProps} />
-              )}
-            </TweetsContextProvider>
+            {(Component.useLayout === false) && (
+              <Component {...pageProps} />
+            )}
           </AuthContextProvider>
         </ProfilesContextProvider>
       </>

@@ -46,12 +46,14 @@ const Tweet = props => {
         className="avatar"
         src={authorProfile.avatar || `https://api.adorable.io/avatars/50/${authorProfile.username}`} />
       <header>
-        <Link href="/author">
-          <a>{authorProfile.username}</a>
+        <Link
+          as={`/${authorProfile.username}`}
+          href="/[username]">
+          <a>{authorProfile.displayName}</a>
         </Link>
-        &mdash;
         <Link href="/user/status/statusID">
           <a>
+            {`@${authorProfile.username} — `}
             <time>
               {moment(createdAt.seconds * 1000).fromNow(true)}
             </time>

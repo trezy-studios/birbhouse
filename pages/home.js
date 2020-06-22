@@ -13,7 +13,9 @@ import Link from 'next/link'
 
 // Local imports
 import { AuthContext } from 'context/AuthContext'
+import { TweetsContextProvider } from 'context/TweetsContext'
 import { TweetFeed } from 'components/TweetFeed'
+import { TweetForm } from 'components/TweetForm'
 
 
 
@@ -46,7 +48,11 @@ const Home = () => {
       </header>
 
       {(!authIsLoading && Boolean(user)) && (
-        <TweetFeed />
+        <TweetsContextProvider>
+          <TweetForm />
+
+          <TweetFeed />
+        </TweetsContextProvider>
       )}
     </>
   )

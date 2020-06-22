@@ -24,8 +24,6 @@ export const TweetFeed = () => {
 
   return (
     <>
-      <TweetForm />
-
       {!tweets.length && (
         <div>No tweets to show</div>
       )}

@@ -71,32 +71,32 @@ const TweetsContextProvider = props => {
       tweetsQuery = tweetsQuery.where('authorID', '==', authorID)
     }
 
-    tweetsQuery
+    return tweetsQuery
       .orderBy('createdAt')
       .onSnapshot(snapshot => {
-      const changes = snapshot.docChanges()
+        const changes = snapshot.docChanges()
 
-      changes.forEach(change => {
-        const { doc } = change
+        changes.forEach(change => {
+          const { doc } = change
 
-        switch (change.type) {
-          case 'removed':
-            setTweets(oldTweets => oldTweets.filter(({ id }) => (id !== doc.id)))
-            break
+          switch (change.type) {
+            case 'removed':
+              setTweets(oldTweets => oldTweets.filter(({ id }) => (id !== doc.id)))
+              break
 
-          case 'added':
-          case 'modified':
-          default:
-            setTweets(oldTweets => [
-              {
-                id: doc.id,
-                ...doc.data(),
-              },
-              ...oldTweets,
-            ])
-        }
+            case 'added':
+            case 'modified':
+            default:
+              setTweets(oldTweets => [
+                {
+                  id: doc.id,
+                  ...doc.data(),
+                },
+                ...oldTweets,
+              ])
+          }
+        })
       })
-    })
   }, [setTweets])
 
   return (

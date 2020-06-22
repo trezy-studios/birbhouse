@@ -33,6 +33,7 @@ let profilesCollection = null
 const ProfilesContextProvider = props => {
   const { children } = props
   const [profiles, setProfiles] = useState({})
+  const profilesByUsername = useRef({})
   const unsubscribers = useRef([])
   const monitoredUsers = useRef({})
 
@@ -40,20 +41,50 @@ const ProfilesContextProvider = props => {
     profilesCollection = firestore.collection('profiles')
   }
 
+  const handleSnapshot = useCallback(doc => {
+    const data = {
+      ...doc.data(),
+      id: doc.id,
+    }
+
+    profilesByUsername.current[data.username] = data
+
+    setProfiles(oldProfiles => ({
+      ...oldProfiles,
+      [doc.id]: {
+        ...data,
+      },
+    }))
+  }, [setProfiles])
+
   const addUser = useCallback(userID => {
     if (!monitoredUsers.current[userID]) {
       monitoredUsers.current[userID] = true
 
-      unsubscribers.current.push(profilesCollection.doc(userID).onSnapshot(doc => {
-        setProfiles(oldProfiles => ({
-          ...oldProfiles,
-          [userID]: {
-            ...doc.data(),
-          },
-        }))
-      }))
+      const unsubscribe = profilesCollection
+        .doc(userID)
+        .onSnapshot(handleSnapshot)
+      unsubscribers.current.push(unsubscribe)
     }
-  }, [setProfiles])
+  }, [handleSnapshot])
+
+  const addUserByUsername = useCallback(username => {
+    const userIsMonitored = Object.entries(monitoredUsers.current).some(([userID, userData]) => {
+      return userData.username === username
+    })
+
+    if (!userIsMonitored) {
+      const unsubscribe = profilesCollection
+        .where('username', '==', username)
+        .onSnapshot(snapshot => {
+          snapshot.forEach(doc => {
+            monitoredUsers.current[doc.id] = true
+            handleSnapshot(doc)
+          })
+        })
+      unsubscribers.current.push(unsubscribe)
+    }
+  }, [handleSnapshot])
 
   const clear = useCallback(() => {
     const monitoredUserIDs = Object.keys(monitoredUsers.current)
@@ -67,8 +98,10 @@ const ProfilesContextProvider = props => {
     <ProfilesContext.Provider
       value={{
         addUser,
+        addUserByUsername,
         clear,
         profiles,
+        profilesByUsername: profilesByUsername.current,
       }}>
       {children}
     </ProfilesContext.Provider>
