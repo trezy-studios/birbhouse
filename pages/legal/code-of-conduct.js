@@ -14,20 +14,22 @@ import { ExternalLink } from 'components/ExternalLink'
 
 
 const CodeOfConduct = () => (
-  <NextSEO
-    description="TL;DR: Don't be a butthole and everything's cool."
-    title="Code of Conduct">
+  <>
+    <NextSEO
+      description="TL;DR: Don't be a butthole and everything's cool."
+      title="Code of Conduct" />
+
     <section>
       <h2>Code of Conduct</h2>
 
       <p><em>Based on the CoC of <ExternalLink href="https://hackandtell.org/">Hack &amp;&amp; Tell</ExternalLink></em></p>
 
-      <p>This document governs the conduct that is expected of <strong>all participants</strong> on <strong>all Trezy.com properties</strong>. This includes, but is not limited to:</p>
+      <p>This document governs the conduct that is expected of <strong>all participants</strong> on <strong>all BirbHouse properties</strong>. This includes, but is not limited to:</p>
 
       <ul className="bulleted">
-        <li>articles submitted to Trezy.com;</li>
-        <li>responses to articles on Trezy.com;</li>
-        <li>chat messages on Trezy.com, even in private conversations; and</li>
+        <li>articles submitted to BirbHouse;</li>
+        <li>responses to articles on BirbHouse;</li>
+        <li>chat messages on BirbHouse, even in private conversations; and</li>
         <li>chat messages in the <ExternalLink href="https://twitch.tv/TrezyCodes">Trezy Studios Discord server</ExternalLink>.</li>
       </ul>
 
@@ -51,7 +53,7 @@ const CodeOfConduct = () => (
 
       <h3>Reporting</h3>
 
-      <p>If you are being harassed, notice that someone else is being harassed, or have any other concerns, please contact me or one of my moderators immediately (either message one of us in chat, or send an email to <ExternalLink href="mailto:harassment@trezy.com">harassment@trezy.com</ExternalLink>). You do <em>not</em> need to be the target of harassment to speak up. Making this the best possible community is everyone's responsibility.</p>
+      <p>If you are being harassed, notice that someone else is being harassed, or have any other concerns, please contact me or one of my moderators immediately (either message one of us in chat, or send an email to <ExternalLink href="mailto:harassment@birbhouse.com">harassment@birbhouse.com</ExternalLink>). You do <em>not</em> need to be the target of harassment to speak up. Making this the best possible community is everyone's responsibility.</p>
 
       <p>If an incident is reported during my stream, the moderators will be happy to help participants contact the appropriate platform and/or local law enforcement, or otherwise assist those experiencing harassment to feel safe for the duration of the stream.</p>
 
@@ -63,7 +65,7 @@ const CodeOfConduct = () => (
 
       <p>If a user engages in harassing behavior, the moderators may take any action they deem appropriate, up to and including expulsion from all facets of my community and identification of the user as a harasser to members of my community and/or the general public.</p>
     </section>
-  </NextSEO>
+  </>
 )
 
 

@@ -1,110 +1,38 @@
 // Module imports
 import Link from 'next/link'
+import moment from 'moment'
 import React from 'react'
 
 
 
 
 
-// Local imports
-import SocialNav from './SocialNav'
-
-
-
-
-
-const ContentInfo = () => (
+export const ContentInfo = () => (
   <footer role="contentinfo">
     <nav
-      className="trezy"
-      aria-labelledby="contentinfo-trezy-header">
-      <header id="contentinfo-trezy-header">
-        Trezy
-      </header>
-
-      <ul>
+      className="legal"
+      aria-labelledby="contentinfo-legal-header">
+      <ul className="inline">
         <li>
-          <Link href="/">
-            <a>Home</a>
+          <Link href="/legal/terms-of-service">
+            <a>Terms</a>
           </Link>
         </li>
 
         <li>
-          <Link href="/about">
-            <a>About</a>
+          <Link href="/legal/privacy-policy">
+            <a>Privacy policy</a>
           </Link>
         </li>
 
         <li>
-          <Link href="/blog">
-            <a>Blog</a>
-          </Link>
-        </li>
-
-        <li>
-          <Link href="/uses">
-            <a>/uses</a>
+          <Link href="/legal/cookie-policy">
+            <a>Cookies</a>
           </Link>
         </li>
       </ul>
     </nav>
 
-    <nav
-      className="account"
-      aria-labelledby="contentinfo-account-header">
-      <header id="contentinfo-account-header">
-        Account
-      </header>
-
-      <ul>
-        <li>
-          <Link href="/profile">
-            <a>My Profile</a>
-          </Link>
-        </li>
-
-        <li>
-          <Link href="/profile">
-            <a>My Articles</a>
-          </Link>
-        </li>
-      </ul>
-    </nav>
-
-    <nav
-      className="resources"
-      aria-labelledby="contentinfo-resources-header">
-      <header id="contentinfo-resources-header">
-        Resources
-      </header>
-
-      <ul>
-        <li>
-          <Link href="/terms-of-service">
-            <a>Terms of Service</a>
-          </Link>
-        </li>
-
-        <li>
-          <Link href="/privacy-policy">
-            <a>Privacy Policy</a>
-          </Link>
-        </li>
-
-        <li>
-          <Link href="/privacy-policy">
-            <a>Cookie Policy</a>
-          </Link>
-        </li>
-      </ul>
-    </nav>
-
-    <SocialNav />
+    <small>&copy; {moment().format('YYYY')} Trezy.com</small>
   </footer>
 )
-
-
-
-
-
-export default ContentInfo

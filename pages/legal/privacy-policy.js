@@ -8,22 +8,24 @@ import React from 'react'
 
 
 // Component imports
-import { ExternalLink } from '../components/ExternalLink'
+import { ExternalLink } from 'components/ExternalLink'
 
 
 
 
 
 const PrivacyPolicy = () => (
-  <NextSEO
-    description="Privacy Policy"
-    title="Privacy Policy">
+  <>
+    <NextSEO
+      description="Privacy Policy"
+      title="Privacy Policy" />
+
     <section>
       <h2>Privacy Policy</h2>
 
       <p><em>This policy is effective as of January 1, 2020.</em></p>
 
-      <p>Your privacy is important to us. It is Trezy.com's policy to respect your privacy regarding any information we may collect from you across our website, <Link href="/"><a>http://trezy.com</a></Link>, and other sites we own and operate.</p>
+      <p>Your privacy is important to us. It is BirbHouse's policy to respect your privacy regarding any information we may collect from you across our website, <Link href="/"><a>https://birb.house</a></Link>, and other sites we own and operate.</p>
     </section>
 
     <section>
@@ -140,13 +142,13 @@ const PrivacyPolicy = () => (
       <p>If we make a significant change to this privacy policy, for example changing a lawful basis on which we process your personal information, we will ask you to re-consent to the amended privacy policy.</p>
 
       <p>
-        <strong>Trezy.com Data Controller &amp; Data Protection Officer</strong>
+        <strong>BirbHouse Data Controller &amp; Data Protection Officer</strong>
         <br />
-        Charles Peebles<br />
-        <a href="mailto:t@trezy.com">t@trezy.com</a>
+        BirbHouse<br />
+        <a href="mailto:datacontroller@birbhouse.com">datacontroller@birbhouse.com</a>
       </p>
     </section>
-  </NextSEO>
+  </>
 )
 
 

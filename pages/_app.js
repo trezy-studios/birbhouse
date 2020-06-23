@@ -33,6 +33,7 @@ import * as fasIcons from 'helpers/fasIconLibrary'
 import * as fabIcons from 'helpers/fabIconLibrary'
 import * as farIcons from 'helpers/farIconLibrary'
 import { Banner } from 'components/Banner'
+import { ContentInfo } from 'components/ContentInfo'
 import firebase from 'helpers/firebase'
 
 
@@ -105,7 +106,10 @@ class App extends NextApp {
           <AuthContextProvider>
             {(Component.useLayout !== false) && (
               <div role="application">
-                <Banner />
+                <div className="left-bar">
+                  <Banner />
+                  <ContentInfo />
+                </div>
 
                 <main>
                   <Component {...pageProps} />

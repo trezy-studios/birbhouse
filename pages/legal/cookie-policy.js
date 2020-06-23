@@ -8,15 +8,17 @@ import React from 'react'
 
 
 const CookiePolicy = () => (
-  <NextSEO
-    description="Cookie Policy"
-    title="Cookie Policy">
+  <>
+    <NextSEO
+      description="Cookie Policy"
+      title="Cookie Policy" />
+
     <section>
       <h2>Cookie Policy</h2>
 
-      <p>We use cookies to help improve your experience of <Link href="/"><a>http://trezy.com</a></Link>. This cookie policy is part of Trezy.com's privacy policy, and covers the use of cookies between your device and our site. We also provide basic information on third-party services we may use, who may also use cookies as part of their service, though they are not covered by our policy.</p>
+      <p>We use cookies to help improve your experience of <Link href="/"><a>https://birb.house</a></Link>. This cookie policy is part of BirbHouse's privacy policy, and covers the use of cookies between your device and our site. We also provide basic information on third-party services we may use, who may also use cookies as part of their service, though they are not covered by our policy.</p>
 
-      <p>If you don’t wish to accept cookies from us, you should instruct your browser to refuse cookies from <Link href="/"><a>http://trezy.com</a></Link>, with the understanding that we may be unable to provide you with some of your desired content and services.</p>
+      <p>If you don’t wish to accept cookies from us, you should instruct your browser to refuse cookies from <Link href="/"><a>http://birb.house</a></Link>, with the understanding that we may be unable to provide you with some of your desired content and services.</p>
     </section>
 
     <section>
@@ -52,7 +54,7 @@ const CookiePolicy = () => (
     <section>
       <h3>Third-party cookies on our site</h3>
 
-      <p>We may employ third-party companies and individuals on our websites—for example, analytics providers and content partners. We grant these third parties access to selected information to perform specific tasks on our behalf. They may also set third-party cookies in order to deliver the services they are providing. Third-party cookies can be used to track you on other websites that use the same third-party service. As we have no control over third-party cookies, they are not covered by Trezy.com's cookie policy.</p>
+      <p>We may employ third-party companies and individuals on our websites—for example, analytics providers and content partners. We grant these third parties access to selected information to perform specific tasks on our behalf. They may also set third-party cookies in order to deliver the services they are providing. Third-party cookies can be used to track you on other websites that use the same third-party service. As we have no control over third-party cookies, they are not covered by BirbHouse's cookie policy.</p>
 
       <h4>Our third-party privacy promise</h4>
 
@@ -66,7 +68,7 @@ const CookiePolicy = () => (
 
       <p>Although some cookies can be blocked with little impact on your experience of a website, blocking all cookies may mean you are unable to access certain features and content across the sites you visit.</p>
     </section>
-  </NextSEO>
+  </>
 )
 
 

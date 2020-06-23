@@ -1,6 +1,7 @@
 main {
   display: flex;
   flex-direction: column;
+  grid-area: main;
   overflow: auto;
   padding: var(--gutter);
 }
