@@ -33,6 +33,8 @@
     Palettes
   \***************************************************************************/
 
+  @include generateHSLCustomPropertiesFromColorWithName(white, white);
+
 	// Core
 	@include generateHSLCustomPropertiesFromColorWithName(primary, #2780e3);
 	@include generateHSLCustomPropertiesFromColorWithName(secondary, #373a3c);
@@ -70,6 +72,6 @@
     @include generateHSLCustomPropertiesFromColorWithName(background-color, #000000);
     @include generateHSLCustomPropertiesFromColorWithName(text-color, #fff);
     @include generateHSLCustomPropertiesFromColorWithName(inverted-background-color, #1a1a1a);
-    @include generateHSLCustomPropertiesFromColorWithName(inverted-text-color, #fff);
+    @include generateHSLCustomPropertiesFromColorWithName(inverted-text-color, #1a1a1a);
   }
 }

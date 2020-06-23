@@ -27,7 +27,7 @@ button, .button {
 
   &.secondary {
     background-color: var(--secondary);
-    color: var(--inverted-text-color);
+    color: var(--white);
 
     &:disabled {
       background-color: var(--secondary-muted);

@@ -34,6 +34,7 @@ import * as fabIcons from 'helpers/fabIconLibrary'
 import * as farIcons from 'helpers/farIconLibrary'
 import { Banner } from 'components/Banner'
 import { ContentInfo } from 'components/ContentInfo'
+import { DevModeWarning } from 'components/DevModeWarning'
 import firebase from 'helpers/firebase'
 
 
@@ -106,6 +107,8 @@ class App extends NextApp {
           <AuthContextProvider>
             {(Component.useLayout !== false) && (
               <div role="application">
+                <DevModeWarning />
+
                 <div className="left-bar">
                   <Banner />
                   <ContentInfo />

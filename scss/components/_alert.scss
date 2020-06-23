@@ -1,0 +1,18 @@
+.alert {
+  background-color: var(--warning);
+  grid-area: alert;
+  padding: var(--gutter);
+  position: relative;
+
+  menu {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    border-style: solid;
+    border-top-width: 0.1rem;
+    margin: var(--gutter) calc(var(--gutter) * -1) calc(var(--gutter) * -1);
+  }
+
+  .close {
+    padding: calc(var(--gutter) / 2) var(--gutter);
+  }
+}

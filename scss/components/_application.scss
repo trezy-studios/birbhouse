@@ -2,8 +2,11 @@
   align-items: stretch;
   display: grid;
   grid-gap: var(--gutter);
-  grid-template-areas: 'left-bar main';
+  grid-template-areas:
+    'alert alert'
+    'left-bar main';
   grid-template-columns: 1fr 4fr;
+  grid-template-rows: auto 1fr;
   justify-content: center;
   margin: 0 auto;
   min-height: 100vh;
