@@ -22,11 +22,15 @@ import {
 
 const AuthContext = React.createContext({
   isLoading: true,
+  isLoadingProfile: true,
+  isLoadingSettings: true,
   isRegistering: false,
+  isUpdating: false,
   login: () => {},
   profile: null,
   register: () => {},
   settings: null,
+  updateProfile: () => {},
   user: null,
 })
 let profilesCollection = null
@@ -39,7 +43,10 @@ let settingsCollection = null
 const AuthContextProvider = props => {
   const { children } = props
   const [isLoading, setIsLoading] = useState(true)
+  const [isLoadingProfile, setIsLoadingProfile] = useState(true)
+  const [isLoadingSettings, setIsLoadingSettings] = useState(true)
   const [isRegistering, setIsRegistering] = useState(false)
+  const [isUpdating, setIsUpdating] = useState(false)
   const [profile, setProfile] = useState(null)
   const [settings, setSettings] = useState(null)
   const [user, setUser] = useState(null)
@@ -113,26 +120,51 @@ const AuthContextProvider = props => {
     setSettings,
   ])
 
+  const updateProfile = useCallback(async updates => {
+    setIsUpdating(true)
+
+    try {
+      await profilesCollection.doc(user.uid).update(updates)
+      setIsUpdating(false)
+      return null
+    } catch (error) {
+      setIsUpdating(false)
+      return error
+    }
+  }, [
+    setIsUpdating,
+    user,
+  ])
+
   useEffect(() => {
     const unsubscribers = []
 
     unsubscribers.push(auth.onAuthStateChanged(user => {
-      const userDocRef = profilesCollection.doc(user.uid)
-      unsubscribers.push(userDocRef.onSnapshot(doc => setProfile(doc.data())))
+      const userProfileRef = profilesCollection.doc(user.uid)
+      const userSettingsRef = settingsCollection.doc(user.uid)
+
+      unsubscribers.push(userProfileRef.onSnapshot(doc => {
+        setProfile(doc.data())
+        setIsLoadingProfile(false)
+      }))
+      unsubscribers.push(userSettingsRef.onSnapshot(doc => {
+        setSettings(doc.data())
+        setIsLoadingSettings(false)
+      }))
 
       setUser(user)
-    }))
-
-    if (isLoading) {
       setIsLoading(false)
-    }
+    }))
 
     return () => {
       unsubscribers.forEach(unsubscriber => unsubscriber())
     }
   }, [
     setIsLoading,
+    setIsLoadingProfile,
+    setIsLoadingSettings,
     setProfile,
+    setSettings,
     setUser,
   ])
 
@@ -140,11 +172,16 @@ const AuthContextProvider = props => {
     <AuthContext.Provider
       value={{
         isLoading,
+        isLoadingProfile,
+        isLoadingSettings,
         isRegistering,
+        isUpdating,
         login,
         logout,
         profile,
         register,
+        settings,
+        updateProfile,
         user,
       }}>
       {children}

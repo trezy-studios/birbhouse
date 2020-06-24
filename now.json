@@ -30,6 +30,10 @@
     {
       "source": "/",
       "destination": "/home"
+    },
+    {
+      "source": "/settings",
+      "destination": "/settings/account"
     }
   ]
 }

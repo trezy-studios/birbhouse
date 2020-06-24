@@ -31,6 +31,12 @@ const links = [
     href: '/[username]',
     title: 'Profile',
   },
+
+  {
+    as: '/settings/account',
+    href: '/settings/[tab]',
+    title: 'Settings',
+  },
 ]
 
 
