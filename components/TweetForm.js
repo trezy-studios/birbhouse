@@ -13,6 +13,7 @@ import PropTypes from 'prop-types'
 
 // Local imports
 import { AuthContext } from 'context/AuthContext'
+import { CharacterCount } from 'components/CharacterCount'
 import { TweetsContext } from 'context/TweetsContext'
 import { Input } from 'components/Input'
 
@@ -21,7 +22,7 @@ import { Input } from 'components/Input'
 
 
 // Local constants
-const MAX_TWEET_LENGTH = 280
+const MAX_TWEET_LENGTH = 256
 
 
 
@@ -77,11 +78,14 @@ const TweetForm = props => {
         method="post"
         onSubmit={handleSubmit}>
         <Input
+          allowOverflow
+          maxLength={MAX_TWEET_LENGTH}
           multiline
           name="body"
           onChange={handleChange}
           placeholder="What's happening?"
           required
+          showCharacterCount={false}
           value={body} />
 
         <input
@@ -111,16 +115,9 @@ const TweetForm = props => {
             Save Draft
           </button>
 
-          {(body.length >= (MAX_TWEET_LENGTH - 60)) && (
-            <span
-              className={classnames({
-                'text-primary': (body.length < (MAX_TWEET_LENGTH - 20)),
-                'text-warning': (body.length >= (MAX_TWEET_LENGTH - 20)) && (body.length <= MAX_TWEET_LENGTH),
-                'text-danger': (body.length > MAX_TWEET_LENGTH),
-              })}>
-              {MAX_TWEET_LENGTH - body.length}
-            </span>
-          )}
+          <CharacterCount
+            maxLength={MAX_TWEET_LENGTH}
+            value={body} />
         </menu>
 
         {Boolean(error) && (

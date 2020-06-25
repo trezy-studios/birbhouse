@@ -20,6 +20,14 @@ import { Input } from 'components/Input'
 
 
 
+// Local constants
+const MAX_DISPLAY_NAME_LENGTH = 64
+const MAX_USERNAME_LENGTH = 16
+
+
+
+
+
 export const AccountSettings = () => {
   const {
     isUpdating,
@@ -66,6 +74,7 @@ export const AccountSettings = () => {
 
         <Input
           id="account-settings::displayName"
+          maxLength={MAX_DISPLAY_NAME_LENGTH}
           onChange={handleDisplayNameChange}
           value={displayName} />
       </fieldset>
@@ -75,6 +84,7 @@ export const AccountSettings = () => {
 
         <Input
           id="account-settings::username"
+          maxLength={MAX_USERNAME_LENGTH}
           onChange={handleUsernameChange}
           value={username} />
       </fieldset>
