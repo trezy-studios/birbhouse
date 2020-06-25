@@ -1,0 +1,24 @@
+.profile-card {
+  header {
+    display: grid;
+    grid-gap: var(--gutter);
+    grid-template-areas:
+      'avatar names'
+      'avatar bio';
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr;
+
+    > img {
+      grid-area: avatar;
+    }
+
+    > h3 {
+      grid-area: names;
+      margin: 0;
+    }
+
+    > .bio {
+      grid-area: bio;
+    }
+  }
+}

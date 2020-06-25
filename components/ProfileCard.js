@@ -5,6 +5,13 @@ import React from 'react'
 
 
 
+// Local imports
+import { MarkdownRenderer } from 'components/MarkdownRenderer'
+
+
+
+
+
 export const ProfileCard = profile => {
   const {
     avatar,
@@ -28,8 +35,13 @@ export const ProfileCard = profile => {
           </span>
         </h3>
 
-        <p>{bio}</p>
+
+        <div className="bio">
+          <MarkdownRenderer source={bio} />
+        </div>
       </header>
+
+      <hr />
     </div>
   )
 }

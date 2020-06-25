@@ -21,6 +21,7 @@ import { Input } from 'components/Input'
 
 
 // Local constants
+const MAX_BIO_LENGTH = 256
 const MAX_DISPLAY_NAME_LENGTH = 64
 const MAX_USERNAME_LENGTH = 16
 
@@ -35,33 +36,48 @@ export const AccountSettings = () => {
     updateProfile,
   } = useContext(AuthContext)
   const [displayName, setDisplayName] = useState(profile.displayName)
+  const [bio, setBio] = useState(profile.bio)
   const [error, setError] = useState(null)
   const [username, setUsername] = useState(profile.username)
 
+  const bioIsDirty = bio !== profile.bio
+  const displayNameIsDirty = displayName !== profile.displayName
+  const usernameIsDirty = username !== profile.username
+
+  const formIsDirty = bioIsDirty || displayNameIsDirty || usernameIsDirty
+
+  const handleBioChange = useCallback(event => setBio(event.target.value), [setBio])
   const handleDisplayNameChange = useCallback(event => setDisplayName(event.target.value), [setDisplayName])
   const handleUsernameChange = useCallback(event => setUsername(event.target.value), [setUsername])
   const handleSave = useCallback(async event => {
     event.preventDefault()
 
-    const error = await updateProfile({
-      displayName,
-      username,
-    })
+    const updates = {}
+
+    if (bioIsDirty) {
+      updates.bio = bio
+    }
+
+    if (displayNameIsDirty) {
+      updates.displayName = displayName
+    }
+
+    if (usernameIsDirty) {
+      updates.username = username
+    }
+
+    const error = await updateProfile(updates)
 
     if (error) {
       setError(error)
     }
   }, [
+    bio,
     displayName,
     setError,
     updateProfile,
     username,
   ])
-
-  const displayNameIsDirty = displayName !== profile.displayName
-  const usernameIsDirty = username !== profile.username
-
-  const formIsDirty = displayNameIsDirty || usernameIsDirty
 
   return (
     <form onSubmit={handleSave}>
@@ -87,6 +103,17 @@ export const AccountSettings = () => {
           maxLength={MAX_USERNAME_LENGTH}
           onChange={handleUsernameChange}
           value={username} />
+      </fieldset>
+
+      <fieldset>
+        <label htmlFor="account-settings::bio">Bio</label>
+
+        <Input
+          id="account-settings::bio"
+          maxLength={MAX_BIO_LENGTH}
+          multiline
+          onChange={handleBioChange}
+          value={bio} />
       </fieldset>
 
       <menu type="toolbar">

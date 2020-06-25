@@ -38,6 +38,7 @@ const Input = forwardRef((props, ref) => {
     delete passableProps.maxLength
   }
 
+  delete passableProps.allowOverflow
   delete passableProps.multiline
   delete passableProps.prefix
   delete passableProps.showCharacterCount
