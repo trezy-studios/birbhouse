@@ -14,6 +14,7 @@ import Link from 'next/link'
 
 // Local imports
 import { AccountSettings } from 'components/AccountSettings'
+import { DisplaySettings } from 'components/DisplaySettings'
 import { AuthContext } from 'context/AuthContext'
 import { Loader } from 'components/Loader'
 
@@ -68,11 +69,28 @@ const SettingsPage = () => {
                   </a>
                 </Link>
               </li>
+
+              <li>
+                <Link
+                  as="/settings/display"
+                  href="/settings/[tab]">
+                  <a
+                    className={classnames({
+                      active: tab === tabs.DISPLAY,
+                    })}>
+                    Display
+                  </a>
+                </Link>
+              </li>
             </ol>
           </nav>
 
           {(tab === tabs.ACCOUNT) && (
             <AccountSettings />
+          )}
+
+          {(tab === tabs.DISPLAY) && (
+            <DisplaySettings />
           )}
         </>
       )}

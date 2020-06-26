@@ -31,10 +31,10 @@ const AuthContext = React.createContext({
   register: () => {},
   settings: null,
   updateProfile: () => {},
+  updateSettings: () => {},
   user: null,
 })
-let profilesCollection = null
-let settingsCollection = null
+const collections = {}
 
 
 
@@ -51,12 +51,12 @@ const AuthContextProvider = props => {
   const [settings, setSettings] = useState(null)
   const [user, setUser] = useState(null)
 
-  if (firestore && !profilesCollection) {
-    profilesCollection = firestore.collection('profiles')
+  if (firestore && !collections['profiles']) {
+    collections['profiles'] = firestore.collection('profiles')
   }
 
-  if (firestore && !settingsCollection) {
-    settingsCollection = firestore.collection('settings')
+  if (firestore && !collections['settings']) {
+    collections['settings'] = firestore.collection('settings')
   }
 
   const login = useCallback(async ({ email, password }) => {
@@ -99,11 +99,13 @@ const AuthContextProvider = props => {
         displayName: username,
         username,
       }
-      const newSettings = {}
+      const newSettings = {
+        theme: 'system',
+      }
 
       await Promise.all([
-        settingsCollection.doc(userID).set(newSettings),
-        profilesCollection.doc(userID).set(newProfile),
+        collections['settings'].doc(userID).set(newSettings),
+        collections['profiles'].doc(userID).set(newProfile),
       ])
 
       setProfile(newProfile)
@@ -120,11 +122,11 @@ const AuthContextProvider = props => {
     setSettings,
   ])
 
-  const updateProfile = useCallback(async updates => {
+  const updateMap = useCallback(async (mapName, updates) => {
     setIsUpdating(true)
 
     try {
-      await profilesCollection.doc(user.uid).update(updates)
+      await collections[mapName].doc(user.uid).update(updates)
       setIsUpdating(false)
       return null
     } catch (error) {
@@ -136,12 +138,15 @@ const AuthContextProvider = props => {
     user,
   ])
 
+  const updateProfile = useCallback(async updates => updateMap('profiles', updates), [updateMap])
+  const updateSettings = useCallback(async updates => updateMap('settings', updates), [updateMap])
+
   useEffect(() => {
     const unsubscribers = []
 
     unsubscribers.push(auth.onAuthStateChanged(user => {
-      const userProfileRef = profilesCollection.doc(user.uid)
-      const userSettingsRef = settingsCollection.doc(user.uid)
+      const userProfileRef = collections['profiles'].doc(user.uid)
+      const userSettingsRef = collections['settings'].doc(user.uid)
 
       unsubscribers.push(userProfileRef.onSnapshot(doc => {
         setProfile(doc.data())
@@ -182,6 +187,7 @@ const AuthContextProvider = props => {
         register,
         settings,
         updateProfile,
+        updateSettings,
         user,
       }}>
       {children}
