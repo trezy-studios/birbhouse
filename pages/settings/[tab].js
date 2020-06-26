@@ -1,6 +1,7 @@
 // Module imports
 import React, {
   useContext,
+  useEffect,
   useState,
 } from 'react'
 import { NextSeo as NextSEO } from 'next-seo'
@@ -23,6 +24,7 @@ import { Loader } from 'components/Loader'
 
 
 const tabs = {
+  ABOUT: 'about',
   ACCOUNT: 'account',
 }
 
@@ -38,6 +40,15 @@ const SettingsPage = () => {
     user,
   } = useContext(AuthContext)
   const [tab, setTab] = useState(router.query.tab)
+
+  useEffect(() => {
+    if (tab !== router.query.tab) {
+      setTab(router.query.tab)
+    }
+  }, [
+    router.query.tab,
+    setTab,
+  ])
 
   return (
     <>
