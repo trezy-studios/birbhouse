@@ -13,6 +13,7 @@ import PropTypes from 'prop-types'
 // Local imports
 import {
   auth,
+  database,
   firestore,
 } from 'helpers/firebase'
 
@@ -35,6 +36,7 @@ const AuthContext = React.createContext({
   user: null,
 })
 const collections = {}
+const refs = {}
 
 
 
@@ -42,6 +44,8 @@ const collections = {}
 
 const AuthContextProvider = props => {
   const { children } = props
+  const [defaultProfile, setDefaultProfile] = useState(null)
+  const [defaultSettings, setDefaultSettings] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const [isLoadingProfile, setIsLoadingProfile] = useState(true)
   const [isLoadingSettings, setIsLoadingSettings] = useState(true)
@@ -51,12 +55,20 @@ const AuthContextProvider = props => {
   const [settings, setSettings] = useState(null)
   const [user, setUser] = useState(null)
 
-  if (firestore && !collections['profiles']) {
-    collections['profiles'] = firestore.collection('profiles')
+  if (firestore && !collections.profiles) {
+    collections.profiles = firestore.collection('profiles')
   }
 
-  if (firestore && !collections['settings']) {
-    collections['settings'] = firestore.collection('settings')
+  if (firestore && !collections.settings) {
+    collections.settings = firestore.collection('settings')
+  }
+
+  if (database && !refs.defaultProfile) {
+    refs.defaultProfile = database.ref('defaultProfile')
+  }
+
+  if (database && !refs.defaultSettings) {
+    refs.defaultSettings = database.ref('defaultSettings')
   }
 
   const login = useCallback(async ({ email, password }) => {
@@ -104,8 +116,8 @@ const AuthContextProvider = props => {
       }
 
       await Promise.all([
-        collections['settings'].doc(userID).set(newSettings),
-        collections['profiles'].doc(userID).set(newProfile),
+        collections.settings.doc(userID).set(newSettings),
+        collections.profiles.doc(userID).set(newProfile),
       ])
 
       setProfile(newProfile)
@@ -138,15 +150,22 @@ const AuthContextProvider = props => {
     user,
   ])
 
-  const updateProfile = useCallback(async updates => updateMap('profiles', updates), [updateMap])
-  const updateSettings = useCallback(async updates => updateMap('settings', updates), [updateMap])
+  const updateDefaultProfile = useCallback(snapshot => setDefaultProfile(snapshot.val()), [setDefaultProfile])
+  const updateDefaultSettings = useCallback(snapshot => setDefaultSettings(snapshot.val()), [setDefaultSettings])
+  const updateProfile = useCallback(updates => updateMap('profiles', updates), [updateMap])
+  const updateSettings = useCallback(updates => updateMap('settings', updates), [updateMap])
 
   useEffect(() => {
     const unsubscribers = []
 
+    refs.defaultProfile.on('value', updateDefaultProfile)
+    refs.defaultSettings.on('value', updateDefaultSettings)
+    unsubscribers.push(() => refs.defaultProfile.off('value', updateDefaultProfile))
+    unsubscribers.push(() => refs.defaultSettings.off('value', updateDefaultSettings))
+
     unsubscribers.push(auth.onAuthStateChanged(user => {
-      const userProfileRef = collections['profiles'].doc(user.uid)
-      const userSettingsRef = collections['settings'].doc(user.uid)
+      const userProfileRef = collections.profiles.doc(user.uid)
+      const userSettingsRef = collections.settings.doc(user.uid)
 
       unsubscribers.push(userProfileRef.onSnapshot(doc => {
         setProfile(doc.data())
@@ -165,6 +184,9 @@ const AuthContextProvider = props => {
       unsubscribers.forEach(unsubscriber => unsubscriber())
     }
   }, [
+    setDefaultProfile,
+    setDefaultSettings,
+    setIsLoading,
     setIsLoading,
     setIsLoadingProfile,
     setIsLoadingSettings,
@@ -183,9 +205,15 @@ const AuthContextProvider = props => {
         isUpdating,
         login,
         logout,
-        profile,
+        profile: {
+          ...defaultProfile,
+          ...profile,
+        },
         register,
-        settings,
+        settings: {
+          ...defaultSettings,
+          ...settings,
+        },
         updateProfile,
         updateSettings,
         user,
