@@ -2,6 +2,7 @@
 import React, {
   useCallback,
   useContext,
+  useEffect,
   useState,
 } from 'react'
 import { NextSeo as NextSEO } from 'next-seo'
@@ -71,6 +72,15 @@ export const DisplaySettings = () => {
     theme,
     setError,
     updateSettings,
+  ])
+
+  useEffect(() => {
+    if (theme !== settings.theme) {
+      setTheme(settings.theme)
+    }
+  }, [
+    setTheme,
+    settings.theme,
   ])
 
   return (

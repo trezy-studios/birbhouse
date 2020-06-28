@@ -2,6 +2,7 @@
 import React, {
   useCallback,
   useContext,
+  useEffect,
   useState,
 } from 'react'
 import { NextSeo as NextSEO } from 'next-seo'
@@ -77,6 +78,27 @@ export const AccountSettings = () => {
     setError,
     updateProfile,
     username,
+  ])
+
+  useEffect(() => {
+    if (displayName !== profile.displayName) {
+      setDisplayName(profile.displayName)
+    }
+
+    if (bio !== profile.bio) {
+      setBio(profile.bio)
+    }
+
+    if (username !== profile.username) {
+      setUsername(profile.username)
+    }
+  }, [
+    profile.displayName,
+    profile.bio,
+    profile.username,
+    setDisplayName,
+    setBio,
+    setUsername,
   ])
 
   return (
