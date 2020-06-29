@@ -16,6 +16,7 @@ import {
   database,
   firestore,
 } from 'helpers/firebase'
+import APIService from 'services/api'
 
 
 
@@ -101,38 +102,20 @@ const AuthContextProvider = props => {
     setIsRegistering(true)
 
     try {
-      const {
-        user: {
-          uid: userID,
-        },
-      } = await auth.createUserWithEmailAndPassword(email, password)
-      const newProfile = {
-        bio: '',
-        displayName: username,
+      await APIService().post('/users/register', {
+        email,
+        password,
         username,
-      }
-      const newSettings = {
-        theme: 'system',
-      }
+      })
+      await login({ email, password })
 
-      await Promise.all([
-        collections.settings.doc(userID).set(newSettings),
-        collections.profiles.doc(userID).set(newProfile),
-      ])
-
-      setProfile(newProfile)
-      setSettings(newSettings)
       setIsRegistering(false)
       return null
     } catch (error) {
       setIsRegistering(false)
       return error
     }
-  }, [
-    setIsRegistering,
-    setProfile,
-    setSettings,
-  ])
+  }, [setIsRegistering])
 
   const updateMap = useCallback(async (mapName, updates) => {
     setIsUpdating(true)
