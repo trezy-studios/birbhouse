@@ -13,6 +13,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "@fortawesome/react-fontawesome": "^0.1.11",
     "@svgr/webpack": "^5.4.0",
+    "algoliasearch": "^4.3.0",
     "axios": "^0.19.2",
     "classnames": "^2.2.6",
     "content-security-policy-builder": "^2.1.0",

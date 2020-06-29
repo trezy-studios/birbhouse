@@ -35,6 +35,7 @@ if (!firebaseAdmin.apps.length) {
 
 
 export const firebase = firebaseAdmin.apps[0]
+export const auth = firebaseAdmin.apps[0]?.auth()
 export const database = firebaseAdmin.apps[0]?.database()
 export const firestore = firebaseAdmin.apps[0]?.firestore()
 export { firebaseAdmin }
