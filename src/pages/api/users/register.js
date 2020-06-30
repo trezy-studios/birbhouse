@@ -73,22 +73,6 @@ export const handler = async (request, response) => {
     return
   }
 
-  try {
-    await Promise.all([
-      firestore.collection('settings').doc(userID).set({ ...defaultSettings }),
-      firestore.collection('profiles').doc(userID).set({
-        ...defaultProfile,
-        displayName: username,
-        username,
-      }),
-    ])
-  } catch (error) {
-    response.status(httpStatus.INTERNAL_SERVER_ERROR)
-    response.json({ errors: [error.message] })
-    response.end()
-    return
-  }
-
   const profile = {
     ...defaultProfile,
     displayName: username,
