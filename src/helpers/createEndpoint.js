@@ -37,7 +37,7 @@ const createEndpoint = options => {
   )
 
   return (req, res) => {
-    if (allowedMethods && !allowedMethods.includes(req.method.toLowerCase())) {
+    if (!allowedMethods?.includes(req.method.toLowerCase())) {
       return res.status(httpStatus.METHOD_NOT_ALLOWED).end()
     }
 

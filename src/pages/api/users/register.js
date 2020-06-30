@@ -1,3 +1,10 @@
+// Module imports
+import algoliasearch from 'algoliasearch/lite'
+
+
+
+
+
 // Local imports
 import {
   auth,
@@ -6,7 +13,6 @@ import {
   firebaseAdmin,
   firestore,
 } from 'helpers/firebase.server'
-import algoliasearch from 'algoliasearch/lite'
 import createEndpoint from 'helpers/createEndpoint'
 import httpStatus from 'helpers/httpStatus'
 
@@ -15,8 +21,8 @@ import httpStatus from 'helpers/httpStatus'
 
 
 // Local constants
-const client = algoliasearch(process.env.ALGOLIA_APP_ID, process.env.ALGOLIA_ADMIN_API_KEY)
-const index = client.initIndex('profiles')
+const algoliaClient = algoliasearch(process.env.ALGOLIA_APP_ID, process.env.ALGOLIA_ADMIN_API_KEY)
+const profileSearchIndex = algoliaClient.initIndex('profiles')
 
 
 
@@ -92,7 +98,7 @@ export const handler = async (request, response) => {
   }
 
   try {
-    await index.saveObject({
+    await profileSearchIndex.saveObject({
       ...profile,
       objectID: userID,
     })
