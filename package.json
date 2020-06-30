@@ -4,6 +4,7 @@
   "scripts": {
     "build": "next build",
     "deploy": "vercel",
+    "initialize-profile-search-index": "babel-node scripts/initializeProfileSearchIndex.js -r dotenv/config",
     "start": "vercel dev"
   },
   "dependencies": {
@@ -40,6 +41,7 @@
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.8.4",
+    "@babel/node": "^7.10.4",
     "@babel/plugin-proposal-decorators": "^7.8.3",
     "@babel/runtime": "^7.8.4",
     "@fuelrats/eslint-config": "^2.1.0",
@@ -47,6 +49,7 @@
     "babel-eslint": "^10.0.3",
     "babel-plugin-prismjs": "^2.0.1",
     "copy-webpack-plugin": "^6.0.2",
+    "dotenv": "^8.2.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-loader": "^3.0.3",
