@@ -6,7 +6,7 @@ import React from 'react'
 
 
 // Local imports
-import BirbhouseSVG from '../public/birbhouse-icon.svg'
+import BirbhouseSVG from '../../public/birbhouse-icon.svg'
 
 
 
