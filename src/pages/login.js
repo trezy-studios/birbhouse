@@ -1,9 +1,7 @@
 // Module imports
 import React, {
   useContext,
-  useEffect,
 } from 'react'
-import { useRouter } from 'next/router'
 
 
 
@@ -13,20 +11,16 @@ import { useRouter } from 'next/router'
 import { AuthContext } from 'context/AuthContext'
 import { LoginForm } from 'components/LoginForm'
 import { SplitPage } from 'components/SplitPage'
+import { useAuthRedirect } from 'hooks/useAuthRedirect'
 
 
 
 
 
 const Login = () => {
-  const router = useRouter()
   const { user } = useContext(AuthContext)
 
-  useEffect(() => {
-    if (user) {
-      router.push('/home')
-    }
-  }, [user])
+  useAuthRedirect(user)
 
   return (
     <SplitPage>

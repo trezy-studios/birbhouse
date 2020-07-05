@@ -13,6 +13,7 @@ import Link from 'next/link'
 
 // Local imports
 import { AuthContext } from 'context/AuthContext'
+import { getQueryParams } from 'helpers/getQueryParams'
 import { Input } from 'components/Input'
 
 
@@ -24,6 +25,7 @@ const LoginForm = () => {
     login,
     logout,
   } = useContext(AuthContext)
+  const { destination } = getQueryParams()
   const [email, setEmail] = useState('')
   const [error, setError] = useState(null)
   const [password, setPassword] = useState('')
@@ -50,6 +52,7 @@ const LoginForm = () => {
   ])
 
   const canSubmit = !isLoggingIn && Boolean(email) && Boolean(password)
+  const registerLink = `/register${destination ? `?destination=${destination}` : ''}`
 
   return (
     <form onSubmit={handleSubmit}>
@@ -81,7 +84,7 @@ const LoginForm = () => {
         </button>
 
         <span>
-          Need to <Link href="/register"><a>create an account</a></Link>?
+          Need to <Link href={registerLink}><a>create an account</a></Link>?
         </span>
       </menu>
 

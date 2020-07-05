@@ -1,11 +1,7 @@
 // Module imports
 import React, {
-  useCallback,
   useContext,
-  useEffect,
-  useState,
 } from 'react'
-import { useRouter } from 'next/router'
 
 
 
@@ -15,26 +11,16 @@ import { useRouter } from 'next/router'
 import { AuthContext } from 'context/AuthContext'
 import { RegistrationForm } from 'components/RegistrationForm'
 import { SplitPage } from 'components/SplitPage'
+import { useAuthRedirect } from 'hooks/useAuthRedirect'
 
 
 
 
 
 const Register = () => {
-  const router = useRouter()
-  const {
-    isRegistering,
-    user,
-  } = useContext(AuthContext)
+  const { user } = useContext(AuthContext)
 
-  useEffect(() => {
-    if (user && !isRegistering) {
-      router.push('/home')
-    }
-  }, [
-    isRegistering,
-    user,
-  ])
+  useAuthRedirect(user)
 
   return (
     <SplitPage>

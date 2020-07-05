@@ -13,6 +13,7 @@ import Link from 'next/link'
 
 // Local imports
 import { AuthContext } from 'context/AuthContext'
+import { getQueryParams } from 'helpers/getQueryParams'
 import { Input } from 'components/Input'
 
 
@@ -25,6 +26,7 @@ export const RegistrationForm = () => {
     register,
     user,
   } = useContext(AuthContext)
+  const { destination } = getQueryParams()
   const [email, setEmail] = useState('')
   const [error, setError] = useState(null)
   const [password, setPassword] = useState('')
@@ -52,7 +54,7 @@ export const RegistrationForm = () => {
     username,
   ])
 
-  const canSubmit = !isRegistering && Boolean(email) && Boolean(password)
+  const loginLink = `/login${destination ? `?destination=${destination}` : ''}`
 
   return (
     <form onSubmit={handleSubmit}>
@@ -91,7 +93,7 @@ export const RegistrationForm = () => {
         </button>
 
         <span>
-          Already have an account? <Link href="/login"><a>Login</a></Link>.
+          Already have an account? <Link href={loginLink}><a>Login</a></Link>.
         </span>
       </menu>
 

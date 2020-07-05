@@ -147,17 +147,19 @@ const AuthContextProvider = props => {
     unsubscribers.push(() => refs.defaultSettings.off('value', updateDefaultSettings))
 
     unsubscribers.push(auth.onAuthStateChanged(user => {
-      const userProfileRef = collections.profiles.doc(user.uid)
-      const userSettingsRef = collections.settings.doc(user.uid)
+      if (user) {
+        const userProfileRef = collections.profiles.doc(user.uid)
+        const userSettingsRef = collections.settings.doc(user.uid)
 
-      unsubscribers.push(userProfileRef.onSnapshot(doc => {
-        setProfile(doc.data())
-        setIsLoadingProfile(false)
-      }))
-      unsubscribers.push(userSettingsRef.onSnapshot(doc => {
-        setSettings(doc.data())
-        setIsLoadingSettings(false)
-      }))
+        unsubscribers.push(userProfileRef.onSnapshot(doc => {
+          setProfile(doc.data())
+          setIsLoadingProfile(false)
+        }))
+        unsubscribers.push(userSettingsRef.onSnapshot(doc => {
+          setSettings(doc.data())
+          setIsLoadingSettings(false)
+        }))
+      }
 
       setUser(user)
       setIsLoading(false)

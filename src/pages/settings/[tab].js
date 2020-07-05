@@ -15,9 +15,10 @@ import Link from 'next/link'
 
 // Local imports
 import { AccountSettings } from 'components/AccountSettings'
-import { DisplaySettings } from 'components/DisplaySettings'
 import { AuthContext } from 'context/AuthContext'
+import { DisplaySettings } from 'components/DisplaySettings'
 import { Loader } from 'components/Loader'
+import { RequiresAuthentication } from 'components/RequiresAuthentication'
 
 
 
@@ -26,6 +27,7 @@ import { Loader } from 'components/Loader'
 const tabs = {
   ABOUT: 'about',
   ACCOUNT: 'account',
+  DISPLAY: 'display',
 }
 
 
@@ -51,7 +53,7 @@ const SettingsPage = () => {
   ])
 
   return (
-    <>
+    <RequiresAuthentication>
       <NextSEO
         description="Settings"
         title="Settings" />
@@ -93,6 +95,19 @@ const SettingsPage = () => {
                   </a>
                 </Link>
               </li>
+
+              <li>
+                <Link
+                  as="/settings/about"
+                  href="/settings/[tab]">
+                  <a
+                    className={classnames({
+                      active: tab === tabs.ABOUT,
+                    })}>
+                    About BirbHouse
+                  </a>
+                </Link>
+              </li>
             </ol>
           </nav>
 
@@ -105,7 +120,7 @@ const SettingsPage = () => {
           )}
         </>
       )}
-    </>
+    </RequiresAuthentication>
   )
 }
 
