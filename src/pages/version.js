@@ -8,7 +8,7 @@ import moment from 'moment'
 
 
 // Component imports
-import { version } from '../package.json'
+import { version } from '../../package.json'
 
 
 
@@ -25,7 +25,9 @@ const nodeVersion = process.env.nodeVersion
 
 
 const Version = () => (
-  <NextSEO title="Version Information">
+  <>
+    <NextSEO title="Version Information" />
+
     <section className="hero">
       <table>
         <tbody>
@@ -59,7 +61,7 @@ const Version = () => (
         </tbody>
       </table>
     </section>
-  </NextSEO>
+  </>
 )
 
 
