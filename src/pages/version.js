@@ -7,54 +7,56 @@ import moment from 'moment'
 
 
 
-// Component imports
-import { version } from '../../package.json'
-
-
-
-
-
-// Component Constants
-/* eslint-disable no-undef,prefer-destructuring */
-// const buildDate = new Date()
-// const nodeVersion = process.env.nodeVersion
-/* eslint-enable */
-
-// VERCEL_GITHUB_COMMIT_AUTHOR_LOGIN
-// VERCEL_GITHUB_COMMIT_SHA
-// VERCEL_GITHUB_COMMIT_REF
-// VERCEL_GITHUB_REPO
-// VERCEL_GITHUB_ORG
-// VERCEL_GITHUB_DEPLOYMENT
-
-
-
-
-
 export default function Version(props) {
+	const {
+		builtAt,
+		commitLink,
+		nextVersion,
+		nodeVersion,
+		repoLink,
+		yarnVersion,
+	} = props
+
 	return (
 		<>
 			<NextSEO title="Version Information" />
 
 			<section className="hero">
-				<pre>{props.blep}</pre>
+				<dl>
+					<dt>Built:</dt>
+					<dd>{(new Date(builtAt)).toString()}</dd>
+
+					<dt>Node Version:</dt>
+					<dd>{nodeVersion}</dd>
+
+					<dt>Yarn Version:</dt>
+					<dd>{yarnVersion}</dd>
+
+					<dt>Next.js Version:</dt>
+					<dd>{nextVersion}</dd>
+
+					<dt>Repo:</dt>
+					<dd><a href={repoLink}>{repoLink}</a></dd>
+
+					<dt>Commit:</dt>
+					<dd><a href={commitLink}>{commitLink}</a></dd>
+				</dl>
 			</section>
 		</>
 	)
 }
 
 export async function getStaticProps() {
+	const [, yarnVersion, nodeVersion] = /yarn\/([\d\.]+) npm\/\? node\/v([\d\.]+)/.exec(process.env.npm_config_user_agent || '')
+
 	return {
 		props: {
-			blep: JSON.stringify(Object.entries(process.env).reduce((accumulator, [key, value]) => {
-				if (!key.toLowerCase().endsWith('key') || !key.toLowerCase().endsWith('secret')) {
-					accumulator[key] = value
-				}
-				// if (key.toLowerCase().startsWith('vercel')) {
-				// }
-
-				return accumulator
-			}, {}), null, 2),
+			builtAt: Date.now(),
+			commitLink: `https://github.com/${process.env.VERCEL_GITHUB_ORG}/${process.env.VERCEL_GITHUB_REPO}/commit/${process.env.VERCEL_GITHUB_COMMIT_SHA}`,
+			nextVersion: process.env.npm_package_dependencies_next,
+			nodeVersion,
+			repoLink: `https://github.com/${process.env.VERCEL_GITHUB_ORG}/${process.env.VERCEL_GITHUB_REPO}`,
+			yarnVersion,
 		},
 	}
 }

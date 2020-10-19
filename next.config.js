@@ -13,11 +13,6 @@ const webpack = require('webpack')
 module.exports = {
 	target: 'serverless',
 
-	env: {
-		buildDate: (new Date()).toISOString(),
-		nodeVersion: process.version,
-	},
-
 	async redirects() {
     return [
 			{
