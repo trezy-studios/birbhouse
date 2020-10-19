@@ -16,56 +16,45 @@ import { version } from '../../package.json'
 
 // Component Constants
 /* eslint-disable no-undef,prefer-destructuring */
-const buildDate = process.env.buildDate
-const nodeVersion = process.env.nodeVersion
+// const buildDate = new Date()
+// const nodeVersion = process.env.nodeVersion
 /* eslint-enable */
 
-
-
-
-
-const Version = () => (
-  <>
-    <NextSEO title="Version Information" />
-
-    <section className="hero">
-      <table>
-        <tbody>
-          <tr>
-            <th>App Version</th>
-
-            <td>
-              <a target="_blank" rel="noopener noreferrer" href={`https://github.com/trezy/trezy.com/releases/tag/v${version}`}>
-                v{version}
-              </a>
-            </td>
-          </tr>
-
-          <tr>
-            <th>Node Version</th>
-
-            <td>
-              <a target="_blank" rel="noopener noreferrer" href={`https://github.com/nodejs/node/releases/tag/${nodeVersion}`}>
-                {nodeVersion}
-              </a>
-            </td>
-          </tr>
-
-          <tr>
-            <th>Built On</th>
-
-            <td>
-              <time dateTime={buildDate}>{moment.utc(buildDate).format('MMMM Do YYYY, hh:mm z')}</time>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-  </>
-)
+// VERCEL_GITHUB_COMMIT_AUTHOR_LOGIN
+// VERCEL_GITHUB_COMMIT_SHA
+// VERCEL_GITHUB_COMMIT_REF
+// VERCEL_GITHUB_REPO
+// VERCEL_GITHUB_ORG
+// VERCEL_GITHUB_DEPLOYMENT
 
 
 
 
 
-export default Version
+export default function Version(props) {
+	return (
+		<>
+			<NextSEO title="Version Information" />
+
+			<section className="hero">
+				<pre>{props.blep}</pre>
+			</section>
+		</>
+	)
+}
+
+export async function getStaticProps() {
+	return {
+		props: {
+			blep: JSON.stringify(Object.entries(process.env).reduce((accumulator, [key, value]) => {
+				if (!key.toLowerCase().endsWith('key') || !key.toLowerCase().endsWith('secret')) {
+					accumulator[key] = value
+				}
+				// if (key.toLowerCase().startsWith('vercel')) {
+				// }
+
+				return accumulator
+			}, {}), null, 2),
+		},
+	}
+}
