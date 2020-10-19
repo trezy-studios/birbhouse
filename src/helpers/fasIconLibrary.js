@@ -1,3 +1,3 @@
 export {
-  faCircleNotch,
+	faCircleNotch,
 } from '@fortawesome/free-solid-svg-icons'

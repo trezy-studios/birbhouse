@@ -1,7 +1,7 @@
 // Module imports
 import React, {
-  useContext,
-  useEffect,
+	useContext,
+	useEffect,
 } from 'react'
 import { useRouter } from 'next/router'
 
@@ -18,29 +18,29 @@ import { Loader } from 'components/Loader'
 
 
 export const RequiresAuthentication = props => {
-  const { children } = props
-  const Router = useRouter()
-  const {
-    isLoading,
-    user,
-  } = useContext(AuthContext)
+	const { children } = props
+	const Router = useRouter()
+	const {
+		isLoading,
+		user,
+	} = useContext(AuthContext)
 
-  useEffect(() => {
-    if ((typeof window !== 'undefined') && !isLoading && !user) {
-      Router.replace(`/register?destination=${location.href.replace(location.origin, '')}`)
-    }
-  }, [
-    isLoading,
-    user,
-  ])
+	useEffect(() => {
+		if ((typeof window !== 'undefined') && !isLoading && !user) {
+			Router.replace(`/register?destination=${location.href.replace(location.origin, '')}`)
+		}
+	}, [
+		isLoading,
+		user,
+	])
 
-  if (isLoading || !user) {
-    return (
-      <Loader />
-    )
-  }
+	if (isLoading || !user) {
+		return (
+			<Loader />
+		)
+	}
 
-  return (
-    <>{children}</>
-  )
+	return (
+		<>{children}</>
+	)
 }

@@ -1,64 +1,61 @@
 .character-count {
-  --progress-circle-radius: 1.5rem;
-  --progress-circle-stroke-width: 0.3rem;
+	--progress-circle-radius: 1.5rem;
+	--progress-circle-stroke-width: 0.3rem;
 
-  --progress-circle-size: calc((var(--progress-circle-radius) * 2) + var(--progress-circle-stroke-width));
+	--progress-circle-size: calc((var(--progress-circle-radius) * 2) + var(--progress-circle-stroke-width));
 
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  opacity: 1;
-  position: relative;
-  transition-duration: 0.2s;
-  transition-property: color, opacity, transform;
-  transform: scale(1);
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	opacity: 1;
+	position: relative;
+	transition-duration: 0.2s;
+	transition-property: color, opacity, transform;
+	transform: scale(1);
 
-  &[hidden] {
-    opacity: 0;
-    transform: scale(0);
-  }
+	&[hidden] {
+		opacity: 0;
+		transform: scale(0);
+	}
 
-  svg {
-    color: inherit;
-    height: var(--progress-circle-size);
-    stroke-linecap: round;
-    width: var(--progress-circle-size);
+	svg {
+		color: inherit;
+		height: var(--progress-circle-size);
+		stroke-linecap: round;
+		width: var(--progress-circle-size);
 
-    circle {
-      transition-duration: 0.2s;
-      transition-property: stroke-dasharray;
-    }
+		circle {
+			fill: transparent;
+			transition-duration: 0.2s;
+			transition-property: stroke-dasharray;
+		}
 
-    .progress-bar {
-      stroke: var(--accent-color);
-      stroke-width: 0.1rem;
-    }
+		.progress-value {
+			stroke: currentColor;
+			stroke-width: var(--progress-circle-stroke-width);
+			transform: rotate(-90deg);
+			transform-origin: 50% 50%;
+		}
+	}
 
-    .progress-value {
-      stroke: currentColor;
-      stroke-width: var(--progress-circle-stroke-width);
-      transform: rotate(-90deg);
-      transform-origin: 50% 50%;
-    }
-  }
+	.characters-remaining {
+		align-items: center;
+		bottom: 0;
+		display: flex;
+		flex-basis: 0;
+		flex-shrink: 1;
+		font-size: 0.6em;
+		justify-content: center;
+		left: 0;
+		opacity: 1;
+		position: absolute;
+		right: 0;
+		top: 0;
+		transition-duration: 0.2s;
+		transition-property: opacity;
 
-  .characters-remaining {
-    align-items: center;
-    bottom: 0;
-    display: flex;
-    flex-basis: 0;
-    flex-shrink: 1;
-    justify-content: center;
-    left: 0;
-    opacity: 1;
-    position: absolute;
-    right: 0;
-    top: 0;
-    transition-duration: 0.2s;
-    transition-property: opacity;
-
-    &[hidden] {
-      opacity: 0;
-    }
-  }
+		&[hidden] {
+			opacity: 0;
+		}
+	}
 }

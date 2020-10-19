@@ -1,9 +1,9 @@
 // Module imports
 import React, {
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
+	useCallback,
+	useEffect,
+	useRef,
+	useState,
 } from 'react'
 import PropTypes from 'prop-types'
 
@@ -13,8 +13,8 @@ import PropTypes from 'prop-types'
 
 // Local imports
 import {
-  firebase,
-  firestore,
+	firebase,
+	firestore,
 } from 'helpers/firebase'
 
 
@@ -22,8 +22,8 @@ import {
 
 
 const TweetsContext = React.createContext({
-  sendTweet: () => {},
-  tweets: [],
+	sendTweet: () => {},
+	tweets: [],
 })
 let tweetsCollection = null
 
@@ -32,96 +32,96 @@ let tweetsCollection = null
 
 
 const TweetsContextProvider = props => {
-  const {
-    authorID,
-    children,
-    includeDrafts,
-  } = props
+	const {
+		authorID,
+		children,
+		includeDrafts,
+	} = props
 
-  const [tweets, setTweets] = useState([])
+	const [tweets, setTweets] = useState([])
 
-  const sendTweet = useCallback(async tweet => {
-    const now = firebase.firestore.Timestamp.now()
+	const sendTweet = useCallback(async tweet => {
+		const now = firebase.firestore.Timestamp.now()
 
-    try {
-      await tweetsCollection.add({
-        ...tweet,
-        createdAt: now,
-        updatedAt: now,
-      })
-    } catch (error) {
-      return error
-    }
+		try {
+			await tweetsCollection.add({
+				...tweet,
+				createdAt: now,
+				updatedAt: now,
+			})
+		} catch (error) {
+			return error
+		}
 
-    return null
-  }, [])
+		return null
+	}, [])
 
-  useEffect(() => {
-    if (!tweetsCollection) {
-      tweetsCollection = firestore.collection('tweets')
-    }
+	useEffect(() => {
+		if (!tweetsCollection) {
+			tweetsCollection = firestore.collection('tweets')
+		}
 
-    let tweetsQuery = tweetsCollection
+		let tweetsQuery = tweetsCollection
 
-    if (!includeDrafts) {
-      tweetsQuery = tweetsQuery.where('isDraft', '==', false)
-    }
+		if (!includeDrafts) {
+			tweetsQuery = tweetsQuery.where('isDraft', '==', false)
+		}
 
-    if (authorID) {
-      tweetsQuery = tweetsQuery.where('authorID', '==', authorID)
-    }
+		if (authorID) {
+			tweetsQuery = tweetsQuery.where('authorID', '==', authorID)
+		}
 
-    return tweetsQuery
-      .orderBy('createdAt')
-      .onSnapshot(snapshot => {
-        const changes = snapshot.docChanges()
+		return tweetsQuery
+			.orderBy('createdAt')
+			.onSnapshot(snapshot => {
+				const changes = snapshot.docChanges()
 
-        changes.forEach(change => {
-          const { doc } = change
+				changes.forEach(change => {
+					const { doc } = change
 
-          switch (change.type) {
-            case 'removed':
-              setTweets(oldTweets => oldTweets.filter(({ id }) => (id !== doc.id)))
-              break
+					switch (change.type) {
+						case 'removed':
+							setTweets(oldTweets => oldTweets.filter(({ id }) => (id !== doc.id)))
+							break
 
-            case 'added':
-            case 'modified':
-            default:
-              setTweets(oldTweets => [
-                {
-                  id: doc.id,
-                  ...doc.data(),
-                },
-                ...oldTweets,
-              ])
-          }
-        })
-      })
-  }, [setTweets])
+						case 'added':
+						case 'modified':
+						default:
+							setTweets(oldTweets => [
+								{
+									id: doc.id,
+									...doc.data(),
+								},
+								...oldTweets,
+							])
+					}
+				})
+			})
+	}, [setTweets])
 
-  return (
-    <TweetsContext.Provider
-      value={{
-        sendTweet,
-        tweets,
-      }}>
-      {children}
-    </TweetsContext.Provider>
-  )
+	return (
+		<TweetsContext.Provider
+			value={{
+				sendTweet,
+				tweets,
+			}}>
+			{children}
+		</TweetsContext.Provider>
+	)
 }
 
 TweetsContextProvider.defaultProps = {
-  authorID: null,
-  includeDrafts: false,
+	authorID: null,
+	includeDrafts: false,
 }
 
 TweetsContextProvider.propTypes = {
-  authorID: PropTypes.string,
-  children: PropTypes.node.isRequired,
-  includeDrafts: PropTypes.bool,
+	authorID: PropTypes.string,
+	children: PropTypes.node.isRequired,
+	includeDrafts: PropTypes.bool,
 }
 
 export {
-  TweetsContext,
-  TweetsContextProvider,
+	TweetsContext,
+	TweetsContextProvider,
 }

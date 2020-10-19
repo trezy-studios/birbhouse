@@ -13,8 +13,8 @@ import BirbhouseSVG from '../../public/birbhouse-icon.svg'
 
 
 export const Brand = () => (
-  <h1 className="brand">
-    <BirbhouseSVG />
-    BirbHouse
-  </h1>
+	<h1 className="brand">
+		<BirbhouseSVG />
+		BirbHouse
+	</h1>
 )

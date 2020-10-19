@@ -27,9 +27,11 @@ const Home = () => (
       description="Blorp"
       title="Home" />
 
-    <header className="page-header">
-      <h2>Home</h2>
+    <header>
+      <h2 className="title is-1">Home</h2>
     </header>
+
+		<hr />
 
     <TweetsContextProvider>
       <TweetForm />

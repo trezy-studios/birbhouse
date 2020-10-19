@@ -1,38 +1,27 @@
 .split-page {
-  align-items: center;
-  display: grid;
-  grid-column: span 2;
-  grid-template-columns: repeat(2, 1fr);
-  height: 100%;
-  width: 100%;
+	.column:first-child {
+		align-content: stretch;
+		align-items: stretch;
+		align-self: stretch;
+		display: flex;
+	}
 
-  > :first-child {
-    align-content: stretch;
-    align-items: stretch;
-    align-self: stretch;
-    background-color: var(--accent-color);
-    display: flex;
-    position: relative;
+	figure {
+		background-position: center;
+		background-size: cover;
+		background-repeat: no-repeat;
+		position: relative;
+		flex-grow: 1;
+		width: 100%;
 
-    > figure {
-      background-position: center;
-      background-size: cover;
-      background-repeat: no-repeat;
-      position: relative;
-      flex-grow: 1;
-      width: 100%;
+		figcaption {
+			bottom: var(--gutter);
+			left: var(--gutter);
+			position: absolute;
+		}
+	}
 
-      figcaption {
-        background-color: hsla(var(--background-color-h), var(--background-color-s), var(--background-color-l), 0.7);
-        bottom: var(--gutter);
-        left: var(--gutter);
-        padding: var(--gutter);
-        position: absolute;
-      }
-    }
-  }
-
-  > :last-child {
-    padding: native-max(var(--gutter), 10rem);
-  }
+	// > :last-child {
+	// 	padding: native-max(var(--gutter), 10rem);
+	// }
 }

@@ -7,11 +7,11 @@ import algoliasearch from 'algoliasearch/lite'
 
 // Local imports
 import {
-  auth,
-  database,
-  firebase,
-  firebaseAdmin,
-  firestore,
+	auth,
+	database,
+	firebase,
+	firebaseAdmin,
+	firestore,
 } from 'helpers/firebase.server'
 import createEndpoint from 'helpers/createEndpoint'
 import httpStatus from 'helpers/httpStatus'
@@ -29,88 +29,88 @@ const profileSearchIndex = algoliaClient.initIndex('profiles')
 
 
 export const handler = async (request, response) => {
-  const {
-    email,
-    password,
-    username,
-  } = request.body
-  const errors = []
+	const {
+		email,
+		password,
+		username,
+	} = request.body
+	const errors = []
 
-  if (!email) {
-    errors.push('email is required.')
-  }
+	if (!email) {
+		errors.push('email is required.')
+	}
 
-  if (!password) {
-    errors.push('password is required.')
-  }
+	if (!password) {
+		errors.push('password is required.')
+	}
 
-  if (!username) {
-    errors.push('username is required.')
-  }
+	if (!username) {
+		errors.push('username is required.')
+	}
 
-  if (errors.length) {
-    response.status(httpStatus.UNPROCESSABLE_ENTITY)
-    response.end()
-    return
-  }
+	if (errors.length) {
+		response.status(httpStatus.UNPROCESSABLE_ENTITY)
+		response.end()
+		return
+	}
 
-  const now = firebaseAdmin.firestore.Timestamp.now()
+	const now = firebaseAdmin.firestore.Timestamp.now()
 
-  const [
-    defaultProfile,
-    defaultSettings,
-  ] = await Promise.all([
-    database.ref('defaultProfile').once('value').then(snapshot => snapshot.val()),
-    database.ref('defaultSettings').once('value').then(snapshot => snapshot.val()),
-  ])
+	const [
+		defaultProfile,
+		defaultSettings,
+	] = await Promise.all([
+		database.ref('defaultProfile').once('value').then(snapshot => snapshot.val()),
+		database.ref('defaultSettings').once('value').then(snapshot => snapshot.val()),
+	])
 
-  let userID = null
+	let userID = null
 
-  try {
-    const userRecord = await auth.createUser({
-      email,
-      password,
-    })
-    userID = userRecord.uid
-  } catch (error) {
-    response.status(httpStatus.INTERNAL_SERVER_ERROR)
-    response.json({ errors: [error.message] })
-    response.end()
-    return
-  }
+	try {
+		const userRecord = await auth.createUser({
+			email,
+			password,
+		})
+		userID = userRecord.uid
+	} catch (error) {
+		response.status(httpStatus.INTERNAL_SERVER_ERROR)
+		response.json({ errors: [error.message] })
+		response.end()
+		return
+	}
 
-  const profile = {
-    ...defaultProfile,
-    displayName: username,
-    username,
-  }
+	const profile = {
+		...defaultProfile,
+		displayName: username,
+		username,
+	}
 
-  try {
-    await Promise.all([
-      firestore.collection('settings').doc(userID).set({ ...defaultSettings }),
-      firestore.collection('profiles').doc(userID).set(profile),
-    ])
-  } catch (error) {
-    response.status(httpStatus.INTERNAL_SERVER_ERROR)
-    response.json({ errors: [error.message] })
-    response.end()
-    return
-  }
+	try {
+		await Promise.all([
+			firestore.collection('settings').doc(userID).set({ ...defaultSettings }),
+			firestore.collection('profiles').doc(userID).set(profile),
+		])
+	} catch (error) {
+		response.status(httpStatus.INTERNAL_SERVER_ERROR)
+		response.json({ errors: [error.message] })
+		response.end()
+		return
+	}
 
-  try {
-    await profileSearchIndex.saveObject({
-      ...profile,
-      objectID: userID,
-    })
-  } catch (error) {
-    response.status(httpStatus.INTERNAL_SERVER_ERROR)
-    response.json({ errors: [error.message] })
-    response.end()
-    return
-  }
+	try {
+		await profileSearchIndex.saveObject({
+			...profile,
+			objectID: userID,
+		})
+	} catch (error) {
+		response.status(httpStatus.INTERNAL_SERVER_ERROR)
+		response.json({ errors: [error.message] })
+		response.end()
+		return
+	}
 
-  response.status(httpStatus.OK)
-  response.end()
+	response.status(httpStatus.OK)
+	response.end()
 }
 
 
@@ -118,6 +118,6 @@ export const handler = async (request, response) => {
 
 
 export default createEndpoint({
-  allowedMethods: ['post'],
-  handler,
+	allowedMethods: ['post'],
+	handler,
 })

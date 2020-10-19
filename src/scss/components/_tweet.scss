@@ -1,24 +1,24 @@
 .tweet {
-  display: grid;
-  grid-gap: 1rem;
-  grid-template-areas:
-    'avatar header'
-    'avatar body';
-  grid-template-columns: 5rem 1fr;
-  padding: var(--gutter);
+	display: grid;
+	grid-gap: 1rem;
+	grid-template-areas:
+		'avatar header'
+		'avatar body';
+	grid-template-columns: 5rem 1fr;
+	padding: var(--gutter);
 
-  .avatar {
-    grid-area: avatar;
-  }
+	.avatar {
+		grid-area: avatar;
+	}
 
-  header {
-    grid-area: header;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+	header {
+		grid-area: header;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
 
-  .body {
-    grid-area: body;
-    word-break: break-all;
-  }
+	.body {
+		grid-area: body;
+		word-break: break-all;
+	}
 }

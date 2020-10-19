@@ -1,7 +1,7 @@
 // Module imports
 import React, {
-  useCallback,
-  useContext,
+	useCallback,
+	useContext,
 } from 'react'
 import { useRouter } from 'next/router'
 import classnames from 'classnames'
@@ -21,22 +21,37 @@ import { Brand } from 'components/Brand'
 
 // Local constants
 const links = [
-  {
-    href: '/home',
-    title: 'Home',
-  },
+	{
+		href: '/home',
+		title: 'Home',
+	},
 
-  {
-    as: data => `/${data.profile?.username}`,
-    href: '/[username]',
-    title: 'Profile',
-  },
+	// {
+	//   href: '/notifications',
+	//   title: 'Notifications',
+	// },
 
-  {
-    as: '/settings/account',
-    href: '/settings/[tab]',
-    title: 'Settings',
-  },
+	// {
+	//   href: '/bookmarks',
+	//   title: 'Bookmarks',
+	// },
+
+	{
+		as: data => `/${data.profile?.username}`,
+		href: '/[username]',
+		title: 'Profile',
+	},
+
+	{
+		as: '/settings/account',
+		href: '/settings/[tab]',
+		title: 'Settings',
+	},
+
+	// {
+	// 	onClick: () => {},
+	// 	title: 'Log out',
+	// },
 ]
 
 
@@ -44,51 +59,53 @@ const links = [
 
 
 export const Banner = () => {
-  const { profile } = useContext(AuthContext)
-  const router = useRouter()
+	const { profile } = useContext(AuthContext)
+	const router = useRouter()
 
-  const renderLinks = useCallback(link => {
-    const linkProps = {
-      profile,
-    }
+	const renderLinks = useCallback(link => {
+		const linkProps = {
+			profile,
+		}
 
-    const href = (typeof link.href === 'function') ? link.href(linkProps) : link.href
-    const title = (typeof link.title === 'function') ? link.title(linkProps) : link.title
+		const href = (typeof link.href === 'function') ? link.href(linkProps) : link.href
+		const title = (typeof link.title === 'function') ? link.title(linkProps) : link.title
 
-    let as = link.as || href
+		let as = link.as || href
 
-    if (typeof as === 'function') {
-      as = as(linkProps)
-    }
+		if (typeof as === 'function') {
+			as = as(linkProps)
+		}
 
-    return (
-      <li key={href}>
-        <Link
-          as={as || href}
-          href={href}>
-          <a
-            className={classnames({
-              active: router.pathname === href,
-            })}>
-            {title}
-          </a>
-        </Link>
-      </li>
-    )
-  }, [
-    profile,
-    router,
-  ])
+		return (
+			<li key={href}>
+				<Link
+					as={as || href}
+					href={href}>
+					<a
+						className={classnames({
+							active: router.pathname === href,
+						})}>
+						{title}
+					</a>
+				</Link>
+			</li>
+		)
+	}, [
+		profile,
+		router,
+	])
 
-  return (
-    <header role="banner">
-      <Brand />
+	return (
+		<header role="banner">
+			<div className="menu-label">
+				<Brand />
+			</div>
 
-      <nav>
-        <ul>
-          {links.map(renderLinks)}
-        </ul>
-      </nav>
-    </header>
-  )
+			<nav>
+				<ul className="menu-list">
+					{links.map(renderLinks)}
+				</ul>
+			</nav>
+		</header>
+	)
 }

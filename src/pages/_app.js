@@ -1,6 +1,6 @@
 // Style imports
 /* eslint-disable import/no-unassigned-import */
-import 'scss/reset.scss'
+// import 'scss/reset.scss'
 import 'scss/lib.scss'
 import 'scss/app.scss'
 /* eslint-enable */
@@ -11,11 +11,12 @@ import 'scss/app.scss'
 
 // Module imports
 import {
-  config as faConfig,
-  library as faLibrary,
+	config as faConfig,
+	library as faLibrary,
 } from '@fortawesome/fontawesome-svg-core'
 import { DefaultSeo as DefaultSEO } from 'next-seo'
 import { AuthContextProvider } from 'context/AuthContext'
+import { NotificationsContextProvider } from 'context/NotificationsContext'
 import { ProfilesContextProvider } from 'context/ProfilesContext'
 import LocalForage from 'localforage'
 import NextApp from 'next/app'
@@ -34,7 +35,7 @@ import * as fabIcons from 'helpers/fabIconLibrary'
 import * as farIcons from 'helpers/farIconLibrary'
 import { Banner } from 'components/Banner'
 import { ContentInfo } from 'components/ContentInfo'
-import { DevModeWarning } from 'components/DevModeWarning'
+import { NotificationTray } from 'components/NotificationTray'
 import firebase from 'helpers/firebase'
 
 
@@ -58,80 +59,89 @@ Router.events.on('routeChangeComplete', () => NProgress.done())
 
 
 class App extends NextApp {
-  constructor (props) {
-    super(props)
+	constructor (props) {
+		super(props)
 
-    LocalForage.config({
-      name: 'Twitter',
-      storeName: 'webStore',
-    })
-  }
+		LocalForage.config({
+			name: 'Twitter',
+			storeName: 'webStore',
+		})
+	}
 
-  render () {
-    const {
-      Component,
-      isServer,
-      store,
-    } = this.props
+	render () {
+		const {
+			Component,
+			isServer,
+			store,
+		} = this.props
 
-    const pageProps = Object.entries(this.props.pageProps).reduce((accumulator, [key, value]) => {
-      const blocklist = [
-        'res',
-        'req',
-      ]
+		const pageProps = Object.entries(this.props.pageProps).reduce((accumulator, [key, value]) => {
+			const blocklist = [
+				'res',
+				'req',
+			]
 
-      if (!blocklist.includes(key)) {
-        accumulator[key] = value
-      }
+			if (!blocklist.includes(key)) {
+				accumulator[key] = value
+			}
 
-      return accumulator
-    }, {})
+			return accumulator
+		}, {})
 
-    return (
-      <>
-        <NextHead>
-          <meta name="viewport" content="initial-scale=1.0, viewport-fit=cover, width=device-width" />
-        </NextHead>
+		return (
+			<>
+				<NextHead>
+					<meta name="viewport" content="initial-scale=1.0, viewport-fit=cover, width=device-width" />
+				</NextHead>
 
-        <DefaultSEO
-          openGraph={{
-            type: 'website',
-            locale: 'en_US',
-            url: 'https://birb.house/',
-            site_name: 'Birbhouse',
-          }}
-          titleTemplate="%s | Birbhouse"
-          twitter={{
-            handle: '@TrezyCodes',
-            site: '@TrezyCodes',
-            cardType: 'summary_large_image',
-          }} />
+				<DefaultSEO
+					openGraph={{
+						type: 'website',
+						locale: 'en_US',
+						url: 'https://birb.house/',
+						site_name: 'Birbhouse',
+					}}
+					titleTemplate="%s | Birbhouse"
+					twitter={{
+						handle: '@TrezyCodes',
+						site: '@TrezyCodes',
+						cardType: 'summary_large_image',
+					}} />
 
-        <ProfilesContextProvider>
-          <AuthContextProvider>
-            {(Component.useLayout !== false) && (
-              <div role="application">
-                <DevModeWarning />
 
-                <div className="left-bar">
-                  <Banner />
-                  <ContentInfo />
-                </div>
+				<ProfilesContextProvider>
+					<AuthContextProvider>
+						<NotificationsContextProvider>
+							<NotificationTray />
 
-                <main>
-                  <Component {...pageProps} />
-                </main>
-              </div>
-            )}
+							{(Component.useLayout !== false) && (
+								<section className="section">
+									<div className="container">
+										<div className="columns">
 
-            {(Component.useLayout === false) && (
-              <Component {...pageProps} />
-            )}
-          </AuthContextProvider>
-        </ProfilesContextProvider>
-      </>
-    )
-  }
+											<aside className="column is-one-fifth menu left-bar">
+												<Banner />
+												<hr />
+												<ContentInfo />
+											</aside>
+
+											<main className="column is-four-fifths">
+												<Component {...pageProps} />
+											</main>
+										</div>
+									</div>
+								</section>
+							)}
+
+							{(Component.useLayout === false) && (
+								<Component {...pageProps} />
+							)}
+						</NotificationsContextProvider>
+					</AuthContextProvider>
+				</ProfilesContextProvider>
+			</>
+		)
+	}
 }
 
 

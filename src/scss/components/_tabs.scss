@@ -1,42 +1,42 @@
 .tabs {
-  border-color: var(--accent-color);
-  border-style: solid;
-  border-bottom-width: 0.1rem;
-  margin-bottom: var(--gutter);
+	border-color: var(--accent-color);
+	border-style: solid;
+	border-bottom-width: 0.1rem;
+	margin-bottom: var(--gutter);
 
-  ol {
-    display: flex;
-  }
+	ol {
+		display: flex;
+	}
 
-  a {
-    color: var(--accent-color);
-    display: block;
-    padding: calc(var(--gutter) / 2) var(--gutter);
-    position: relative;
-    text-decoration: none;
-    transition-duration: 0.2s;
-    transition-property: color;
+	a {
+		color: var(--accent-color);
+		display: block;
+		padding: calc(var(--gutter) / 2) var(--gutter);
+		position: relative;
+		text-decoration: none;
+		transition-duration: 0.2s;
+		transition-property: color;
 
-    &:after {
-      background-color: var(--primary);
-      bottom: 0;
-      content: '';
-      display: block;
-      height: 0;
-      left: 0;
-      position: absolute;
-      right: 0;
-      transition-duration: 0.2s;
-      transition-property: height;
-    }
+		&:after {
+			background-color: var(--primary);
+			bottom: 0;
+			content: '';
+			display: block;
+			height: 0;
+			left: 0;
+			position: absolute;
+			right: 0;
+			transition-duration: 0.2s;
+			transition-property: height;
+		}
 
-    &:hover,
-    &.active {
-      color: inherit;
+		&:hover,
+		&.active {
+			color: inherit;
 
-      &:after {
-        height: 0.4rem;
-      }
-    }
-  }
+			&:after {
+				height: 0.4rem;
+			}
+		}
+	}
 }

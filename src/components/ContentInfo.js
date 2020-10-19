@@ -12,10 +12,10 @@ export const ContentInfo = () => (
     <nav
       className="legal"
       aria-labelledby="contentinfo-legal-header">
-      <ul className="inline">
+      <ul className="menu-list">
         <li>
           <Link href="/legal/terms-of-service">
-            <a>Terms</a>
+            <a>Terms of Service</a>
           </Link>
         </li>
 
@@ -33,6 +33,6 @@ export const ContentInfo = () => (
       </ul>
     </nav>
 
-    <small>&copy; {moment().format('YYYY')} Trezy.com</small>
+    <small className="menu-label">&copy; {moment().format('YYYY')} Trezy.com</small>
   </footer>
 )

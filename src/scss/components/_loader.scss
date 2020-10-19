@@ -1,17 +1,17 @@
 .loader {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  left: 50%;
-  position: absolute;
-  top: 50%;
-  transform: translate(-50%, -50%);
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	left: 50%;
+	position: absolute;
+	top: 50%;
+	transform: translate(-50%, -50%);
 
-  span {
-    text-transform: lowercase;
+	span {
+		text-transform: lowercase;
 
-    + span {
-      margin-top: 1rem;
-    }
-  }
+		+ span {
+			margin-top: 1rem;
+		}
+	}
 }

@@ -1,11 +1,11 @@
 .brand {
-  align-items: baseline;
-  display: flex;
+	align-items: baseline;
+	display: flex;
 
-  svg {
-    fill: var(--text-color);
-    flex-shrink: 0;
-    margin-right: 0.5em;
-    width: 1em;
-  }
+	svg {
+		fill: var(--text-color);
+		flex-shrink: 0;
+		margin-right: 0.5em;
+		width: 1em;
+	}
 }

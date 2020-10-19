@@ -1,7 +1,7 @@
 // Local imports
 import {
-  Code,
-  List,
+	Code,
+	List,
 } from 'helpers/markdownRenderers'
 
 
@@ -9,19 +9,19 @@ import {
 
 
 const config = {
-  disallowedTypes: [
-    'heading',
-    'html',
-    'image',
-    'imageReference',
-    'linkReference',
-    'thematicBreak',
-  ],
-  renderers: {
-    code: Code,
-    list: List,
-  },
-  unwrapDisallowed: true,
+	disallowedTypes: [
+		'heading',
+		'html',
+		'image',
+		'imageReference',
+		'linkReference',
+		'thematicBreak',
+	],
+	renderers: {
+		code: Code,
+		list: List,
+	},
+	unwrapDisallowed: true,
 }
 
 

@@ -1,14 +1,14 @@
 menu {
-  align-items: center;
-  display: flex;
-  // justify-content: flex-end;
-  flex-direction: row-reverse;
+	align-items: center;
+	display: flex;
+	// justify-content: flex-end;
+	flex-direction: row-reverse;
 
-  > * + * {
-    margin-right: var(--gutter);
-  }
+	> * + * {
+		margin-right: var(--gutter);
+	}
 
-  > span {
-    font-size: 0.8em;
-  }
+	> span {
+		font-size: 0.8em;
+	}
 }

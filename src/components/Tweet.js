@@ -41,30 +41,42 @@ const Tweet = props => {
   }
 
   return (
-    <article className="tweet">
-      <img
-        className="avatar"
-        src={authorProfile.avatar || `https://api.adorable.io/avatars/50/${authorProfile.username}`} />
-      <header>
-        <Link
-          as={`/${authorProfile.username}`}
-          href="/[username]">
-          <a>{authorProfile.displayName}</a>
-        </Link>
-        <Link href="/user/status/statusID">
-          <a>
-            {`@${authorProfile.username} — `}
-            <time>
-              {moment(createdAt.seconds * 1000).fromNow(true)}
-            </time>
-          </a>
-        </Link>
-      </header>
+    <div className="box">
+			<article className="media">
+				<figure className="media-left">
+					<div className="image is-64x64">
+						<img
+							className="avatar"
+							src={authorProfile.avatar || `https://api.adorable.io/avatars/64/${authorProfile.username}`} />
+					</div>
+				</figure>
 
-      <div className="body">
-        <MarkdownRenderer source={body} />
-      </div>
-    </article>
+				<div className="media-content">
+					<header>
+						<Link
+							as={`/${authorProfile.username}`}
+							href="/[username]">
+							<a><strong>{authorProfile.displayName}</strong></a>
+						</Link>
+						{' '}
+						<Link href="/user/status/statusID">
+							<a>
+								<small>
+									{`@${authorProfile.username} — `}
+									<time>
+										{moment(createdAt.seconds * 1000).fromNow(true)}
+									</time>
+								</small>
+							</a>
+						</Link>
+					</header>
+
+					<div className="body">
+						<MarkdownRenderer source={body} />
+					</div>
+				</div>
+			</article>
+		</div>
   )
 }
 

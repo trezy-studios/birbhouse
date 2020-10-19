@@ -14,7 +14,7 @@ module.exports = {
 	target: 'serverless',
 
 	async redirects() {
-    return [
+		return [
 			{
 				source: '/',
 				destination: '/home',

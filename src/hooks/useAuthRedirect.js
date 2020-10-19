@@ -14,15 +14,15 @@ import { getQueryParams } from 'helpers/getQueryParams'
 
 
 export const useAuthRedirect = (user, dependencies = []) => {
-  const router = useRouter()
-  const { destination } = getQueryParams()
+	const router = useRouter()
+	const { destination } = getQueryParams()
 
 	useEffect(() => {
-    if (user) {
-      router.push(destination || '/home')
-    }
+		if (user) {
+			router.push(destination || '/home')
+		}
 	}, [
-    ...dependencies,
-    user,
-  ])
+		...dependencies,
+		user,
+	])
 }

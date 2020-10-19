@@ -1,27 +1,27 @@
 [role=banner] {
-  padding: var(--gutter);
+	padding: var(--gutter);
 
-  nav {
-    ul {
-      display: flex;
-      flex-direction: column;
-    }
+	nav {
+		ul {
+			display: flex;
+			flex-direction: column;
+		}
 
-    a {
-      color: inherit;
-      display: block;
-      font-size: 1.5em;
-      margin: 0 calc(var(--gutter) * -1);
-      padding: calc(var(--gutter) / 2) var(--gutter);
-      text-decoration: none;
+		a {
+			color: inherit;
+			display: block;
+			font-size: 1.5em;
+			margin: 0 calc(var(--gutter) * -1);
+			padding: calc(var(--gutter) / 2) var(--gutter);
+			text-decoration: none;
 
-      &:hover {
-        background-color: var(--inverted-background-color);
-      }
+			&:hover {
+				background-color: var(--inverted-background-color);
+			}
 
-      &.active {
-        background-color: var(--accent-color);
-      }
-    }
-  }
+			&.active {
+				background-color: var(--accent-color);
+			}
+		}
+	}
 }

@@ -44,9 +44,11 @@ const ProfilePage = () => {
         description="Blorp"
         title={title} />
 
-      <header className="page-header">
-        <h2>Profile</h2>
+      <header>
+        <h2 className="title is-1">Profile</h2>
       </header>
+
+			<hr />
 
       {!profile && (
         <Loader />
@@ -55,6 +57,8 @@ const ProfilePage = () => {
       {profile && (
         <>
           <ProfileCard {...profile} />
+
+					<hr />
 
           <TweetsContextProvider authorID={profile.id}>
             <TweetFeed />

@@ -1,6 +1,6 @@
 // Module imports
 import React, {
-  useContext,
+	useContext,
 } from 'react'
 
 
@@ -18,17 +18,15 @@ import { useAuthRedirect } from 'hooks/useAuthRedirect'
 
 
 const Register = () => {
-  const { user } = useContext(AuthContext)
+	const { user } = useContext(AuthContext)
 
-  useAuthRedirect(user)
+	useAuthRedirect(user)
 
-  return (
-    <SplitPage>
-      <main>
-        <RegistrationForm />
-      </main>
-    </SplitPage>
-  )
+	return (
+		<SplitPage>
+			<RegistrationForm />
+		</SplitPage>
+	)
 }
 
 Register.useLayout = false

@@ -1,8 +1,8 @@
 // Module imports
 import React, {
-  useCallback,
-  useRef,
-  useState,
+	useCallback,
+	useRef,
+	useState,
 } from 'react'
 import PropTypes from 'prop-types'
 
@@ -12,7 +12,7 @@ import PropTypes from 'prop-types'
 
 // Local imports
 import {
-  firestore,
+	firestore,
 } from 'helpers/firebase'
 
 
@@ -20,9 +20,9 @@ import {
 
 
 const ProfilesContext = React.createContext({
-  addUser: () => {},
-  clear: () => {},
-  profiles: {},
+	addUser: () => {},
+	clear: () => {},
+	profiles: {},
 })
 let profilesCollection = null
 
@@ -31,85 +31,85 @@ let profilesCollection = null
 
 
 const ProfilesContextProvider = props => {
-  const { children } = props
-  const [profiles, setProfiles] = useState({})
-  const profilesByUsername = useRef({})
-  const unsubscribers = useRef([])
-  const monitoredUsers = useRef({})
+	const { children } = props
+	const [profiles, setProfiles] = useState({})
+	const profilesByUsername = useRef({})
+	const unsubscribers = useRef([])
+	const monitoredUsers = useRef({})
 
-  if (firestore && !profilesCollection) {
-    profilesCollection = firestore.collection('profiles')
-  }
+	if (firestore && !profilesCollection) {
+		profilesCollection = firestore.collection('profiles')
+	}
 
-  const handleSnapshot = useCallback(doc => {
-    const data = {
-      ...doc.data(),
-      id: doc.id,
-    }
+	const handleSnapshot = useCallback(doc => {
+		const data = {
+			...doc.data(),
+			id: doc.id,
+		}
 
-    profilesByUsername.current[data.username] = data
+		profilesByUsername.current[data.username] = data
 
-    setProfiles(oldProfiles => ({
-      ...oldProfiles,
-      [doc.id]: {
-        ...data,
-      },
-    }))
-  }, [setProfiles])
+		setProfiles(oldProfiles => ({
+			...oldProfiles,
+			[doc.id]: {
+				...data,
+			},
+		}))
+	}, [setProfiles])
 
-  const addUser = useCallback(userID => {
-    if (!monitoredUsers.current[userID]) {
-      monitoredUsers.current[userID] = true
+	const addUser = useCallback(userID => {
+		if (!monitoredUsers.current[userID]) {
+			monitoredUsers.current[userID] = true
 
-      const unsubscribe = profilesCollection
-        .doc(userID)
-        .onSnapshot(handleSnapshot)
-      unsubscribers.current.push(unsubscribe)
-    }
-  }, [handleSnapshot])
+			const unsubscribe = profilesCollection
+				.doc(userID)
+				.onSnapshot(handleSnapshot)
+			unsubscribers.current.push(unsubscribe)
+		}
+	}, [handleSnapshot])
 
-  const addUserByUsername = useCallback(username => {
-    const userIsMonitored = Object.entries(monitoredUsers.current).some(([userID, userData]) => {
-      return userData.username === username
-    })
+	const addUserByUsername = useCallback(username => {
+		const userIsMonitored = Object.entries(monitoredUsers.current).some(([userID, userData]) => {
+			return userData.username === username
+		})
 
-    if (!userIsMonitored) {
-      const unsubscribe = profilesCollection
-        .where('username', '==', username)
-        .onSnapshot(snapshot => {
-          snapshot.forEach(doc => {
-            monitoredUsers.current[doc.id] = true
-            handleSnapshot(doc)
-          })
-        })
-      unsubscribers.current.push(unsubscribe)
-    }
-  }, [handleSnapshot])
+		if (!userIsMonitored) {
+			const unsubscribe = profilesCollection
+				.where('username', '==', username)
+				.onSnapshot(snapshot => {
+					snapshot.forEach(doc => {
+						monitoredUsers.current[doc.id] = true
+						handleSnapshot(doc)
+					})
+				})
+			unsubscribers.current.push(unsubscribe)
+		}
+	}, [handleSnapshot])
 
-  const clear = useCallback(() => {
-    const monitoredUserIDs = Object.keys(monitoredUsers.current)
-    monitoredUserIDs.forEach(userID => {
-      delete monitoredUserIDs.current[userID]
-    })
-    unsubscribers.current.forEach(unsubscriber => unsubscriber())
-  }, [unsubscribers])
+	const clear = useCallback(() => {
+		const monitoredUserIDs = Object.keys(monitoredUsers.current)
+		monitoredUserIDs.forEach(userID => {
+			delete monitoredUserIDs.current[userID]
+		})
+		unsubscribers.current.forEach(unsubscriber => unsubscriber())
+	}, [unsubscribers])
 
-  return (
-    <ProfilesContext.Provider
-      value={{
-        addUser,
-        addUserByUsername,
-        clear,
-        profiles,
-        profilesByUsername: profilesByUsername.current,
-      }}>
-      {children}
-    </ProfilesContext.Provider>
-  )
+	return (
+		<ProfilesContext.Provider
+			value={{
+				addUser,
+				addUserByUsername,
+				clear,
+				profiles,
+				profilesByUsername: profilesByUsername.current,
+			}}>
+			{children}
+		</ProfilesContext.Provider>
+	)
 }
 
 ProfilesContextProvider.propTypes = {
-  children: PropTypes.node.isRequired,
+	children: PropTypes.node.isRequired,
 }
 
 
@@ -117,6 +117,6 @@ ProfilesContextProvider.propTypes = {
 
 
 export {
-  ProfilesContext,
-  ProfilesContextProvider,
+	ProfilesContext,
+	ProfilesContextProvider,
 }

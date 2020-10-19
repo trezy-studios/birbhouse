@@ -1,0 +1,7 @@
+.notification-tray {
+  bottom: var(--gutter);
+  right: var(--gutter);
+  max-width: calc(50vw - var(--gutter));
+  position: fixed;
+  z-index: 1;
+}

@@ -13,35 +13,37 @@ import { MarkdownRenderer } from 'components/MarkdownRenderer'
 
 
 export const ProfileCard = profile => {
-  const {
-    avatar,
-    bio,
-    displayName,
-    username,
-  } = profile
+	const {
+		avatar,
+		bio,
+		displayName,
+		username,
+	} = profile
 
-  return (
-    <div className="profile-card">
-      <header>
-        <img
-          className="avatar"
-          src={avatar || `https://api.adorable.io/avatars/50/${username}`} />
+	return (
+		<div className="media">
+			<figure className="media-left">
+				<div className="image is-128x128">
+					<img
+						className="avatar"
+						src={avatar || `https://api.adorable.io/avatars/128/${username}`} />
+				</div>
+			</figure>
 
-        <h3>
-          {displayName}
+			<div className="media-content">
+				<h3>
+					<strong>{displayName}</strong>
+					{' '}
+					<small className="text-is-secondary">
+						@{username}
+					</small>
+				</h3>
 
-          <span className="subtitle text-secondary">
-            @{username}
-          </span>
-        </h3>
 
-
-        <div className="bio">
-          <MarkdownRenderer source={bio} />
-        </div>
-      </header>
-
-      <hr />
-    </div>
-  )
+				<div className="bio">
+					<MarkdownRenderer source={bio} />
+				</div>
+			</div>
+		</div>
+	)
 }

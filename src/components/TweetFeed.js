@@ -1,6 +1,6 @@
 // Module imports
 import React, {
-  useContext,
+	useContext,
 } from 'react'
 import { firestore } from 'helpers/firebase'
 import Link from 'next/link'
@@ -20,23 +20,25 @@ import { TweetForm } from 'components/TweetForm'
 
 
 export const TweetFeed = () => {
-  const { tweets } = useContext(TweetsContext)
+	const { tweets } = useContext(TweetsContext)
 
-  return (
-    <>
-      {!tweets.length && (
-        <div>No tweets to show</div>
-      )}
+	return (
+		<>
+			{!tweets.length && (
+				<div>No tweets to show</div>
+			)}
 
-      {Boolean(tweets.length) && (
-        <ol>
-          {tweets.map(tweet => (
-            <li key={tweet.id}>
-              <Tweet {...tweet} />
-            </li>
-          ))}
-        </ol>
-      )}
-    </>
-  )
+			{Boolean(tweets.length) && (
+				<ol className="feed">
+					{tweets.map(tweet => (
+						<li
+							className="block"
+							key={tweet.id}>
+							<Tweet {...tweet} />
+						</li>
+					))}
+				</ol>
+			)}
+		</>
+	)
 }

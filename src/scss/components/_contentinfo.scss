@@ -1,14 +1,14 @@
 [role=contentinfo] {
-  color: var(--accent-color);
-  padding: var(--gutter);
-  padding-top: 0;
+	color: var(--accent-color);
+	padding: var(--gutter);
+	padding-top: 0;
 
-  a {
-    color: inherit;
-    text-decoration: none;
+	a {
+		color: inherit;
+		text-decoration: none;
 
-    &:hover {
-      text-decoration: underline;
-    }
-  }
+		&:hover {
+			text-decoration: underline;
+		}
+	}
 }
