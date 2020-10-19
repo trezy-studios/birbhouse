@@ -5,7 +5,7 @@
     "build": "next build",
     "deploy": "vercel",
     "initialize-profile-search-index": "babel-node scripts/initializeProfileSearchIndex.js -r dotenv/config",
-    "start": "vercel dev"
+    "start": "next dev"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.28",
@@ -17,13 +17,13 @@
     "algoliasearch": "^4.3.0",
     "axios": "^0.19.2",
     "classnames": "^2.2.6",
-    "content-security-policy-builder": "^2.1.0",
     "firebase": "^7.15.1",
     "firebase-admin": "^8.12.1",
     "localforage": "^1.7.4",
     "micro-cors": "^0.1.1",
     "moment": "^2.27.0",
-    "next": "^9.3.1",
+    "next": "^9.5.5",
+    "next-safe": "1.0.1",
     "next-seo": "^4.5.0",
     "nprogress": "^0.2.0",
     "prismjs": "^1.20.0",

@@ -89,6 +89,10 @@ class App extends NextApp {
 
     return (
       <>
+        <NextHead>
+          <meta name="viewport" content="initial-scale=1.0, viewport-fit=cover, width=device-width" />
+        </NextHead>
+
         <DefaultSEO
           openGraph={{
             type: 'website',
