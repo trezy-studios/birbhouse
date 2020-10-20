@@ -97,9 +97,7 @@ export const Banner = () => {
 
 	return (
 		<header role="banner">
-			<div className="menu-label">
-				<Brand />
-			</div>
+			<Brand />
 
 			<nav>
 				<ul className="menu-list">
